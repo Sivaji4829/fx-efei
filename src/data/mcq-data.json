@@ -1,0 +1,197 @@
+[
+  {
+    "id": 1,
+    "question": "What is the time complexity of searching in a balanced Binary Search Tree?",
+    "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 2,
+    "question": "Java snippet output: int x=5; System.out.println(x+++++x);",
+    "options": ["10", "11", "12", "13"],
+    "correctAnswer": 3
+  },
+  {
+    "id": 3,
+    "question": "Which of these best describes polymorphism in OOP?",
+    "options": [
+      "Wrapping data and methods into one unit",
+      "Hiding implementation details",
+      "Same method behaving differently based on object",
+      "Reusing code in multiple classes"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": 4,
+    "question": "Which SQL query returns the second highest salary?",
+    "options": [
+      "SELECT MAX(salary) FROM Employee;",
+      "SELECT salary FROM Employee ORDER BY salary DESC LIMIT 2,1;",
+      "SELECT MAX(salary) FROM Employee WHERE salary < (SELECT MAX(salary) FROM Employee);",
+      "SELECT salary FROM Employee WHERE ROWNUM=2;"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": 5,
+    "question": "C code snippet: int x=10; printf(\"%d\", x+++++x);",
+    "options": ["20", "21", "Undefined behavior", "22"],
+    "correctAnswer": 2
+  },
+  {
+    "id": 6,
+    "question": "Which of the following is most memory-efficient to store boolean values in large quantities?",
+    "options": ["int", "char", "boolean/bitset", "float"],
+    "correctAnswer": 2
+  },
+  {
+    "id": 7,
+    "question": "Java snippet: String s1 = \"hello\"; String s2 = new String(\"hello\"); System.out.println(s1 == s2);",
+    "options": ["true", "false", "depends on JVM", "compile error"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 8,
+    "question": "Which data structure is best for implementing undo/redo operations?",
+    "options": ["Queue", "Stack", "HashMap", "Linked List"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 9,
+    "question": "Python snippet: x = [1, 2, 3]; y = x; y.append(4); print(x)",
+    "options": ["[1, 2, 3]", "[1, 2, 3, 4]", "Error", "None"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 10,
+    "question": "In Java, which exception is thrown when dividing by zero?",
+    "options": ["NullPointerException", "ArithmeticException", "NumberFormatException", "IllegalArgumentException"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 11,
+    "question": "What is the time complexity of Merge Sort?",
+    "options": ["O(n)", "O(n log n)", "O(log n)", "O(n^2)"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 12,
+    "question": "Which keyword in Java is used for method overriding prevention?",
+    "options": ["static", "final", "abstract", "const"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 13,
+    "question": "JavaScript snippet: console.log(\"5\" + 2); console.log(\"5\" - 2);",
+    "options": ["7, 3", "\"52\", \"3\"", "\"52\", 3", "Error"],
+    "correctAnswer": 2
+  },
+  {
+    "id": 14,
+    "question": "Accessing an array element by index takes:",
+    "options": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+    "correctAnswer": 0
+  },
+  {
+    "id": 15,
+    "question": "Which OOP principle is being applied when parent class reference points to child class object?",
+    "options": ["Encapsulation", "Polymorphism", "Inheritance", "Abstraction"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 16,
+    "question": "Which sorting algorithm is best for nearly sorted data?",
+    "options": ["Bubble Sort", "Quick Sort", "Merge Sort", "Insertion Sort"],
+    "correctAnswer": 3
+  },
+  {
+    "id": 17,
+    "question": "Python snippet output: def fun(x=[]): x.append(1); return x; print(fun()); print(fun())",
+    "options": ["[1], [1]", "[1], [1,1]", "Error", "None"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 18,
+    "question": "In Java, if finally block has a return statement, it will:",
+    "options": ["Override try/catch return", "Execute but ignore return", "Not execute", "Cause error"],
+    "correctAnswer": 0
+  },
+  {
+    "id": 19,
+    "question": "Which data structure is best suited for implementing a task scheduler?",
+    "options": ["Stack", "Queue", "HashMap", "Tree"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 20,
+    "question": "C code after freeing a pointer and reusing it refers to:",
+    "options": ["Stack corruption", "Dangling pointer", "Memory leak", "Segmentation tree"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 21,
+    "question": "Which SQL statement will return all employees with salary greater than average salary?",
+    "options": [
+      "SELECT * FROM Employee WHERE salary > AVG(salary);",
+      "SELECT * FROM Employee WHERE salary > (SELECT AVG(salary) FROM Employee);",
+      "SELECT * FROM Employee HAVING salary > AVG(salary);",
+      "None"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": 22,
+    "question": "Which keyword in Java is used for runtime polymorphism?",
+    "options": ["static", "final", "virtual", "dynamic dispatch (via overriding)"],
+    "correctAnswer": 3
+  },
+  {
+    "id": 23,
+    "question": "Which data structure provides O(1) average time for insertion, deletion, and search?",
+    "options": ["HashMap", "ArrayList", "Stack", "Queue"],
+    "correctAnswer": 0
+  },
+  {
+    "id": 24,
+    "question": "Which exception occurs if a thread sleeps with negative time?",
+    "options": ["InterruptedException", "IllegalArgumentException", "ArithmeticException", "NullPointerException"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 25,
+    "question": "Java snippet output: System.out.println(10+20+\"Hello\"+30+40);",
+    "options": ["Hello3040", "30Hello3040", "10Hello20", "Hello70"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 26,
+    "question": "BFS traversal of a graph with V vertices and E edges takes:",
+    "options": ["O(V)", "O(E)", "O(V+E)", "O(V*E)"],
+    "correctAnswer": 2
+  },
+  {
+    "id": 27,
+    "question": "In recursion, what happens if the base case is missing?",
+    "options": ["Infinite loop", "Compile error", "Stack overflow error", "Logic correction"],
+    "correctAnswer": 2
+  },
+  {
+    "id": 28,
+    "question": "Which operator checks object equality in Java?",
+    "options": ["==", ".equals()", "=", "compareTo()"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 29,
+    "question": "JavaScript snippet: console.log(0 == false); console.log(0 === false);",
+    "options": ["true, true", "true, false", "false, true", "false, false"],
+    "correctAnswer": 1
+  },
+  {
+    "id": 30,
+    "question": "Which is NOT an OOP principle?",
+    "options": ["Inheritance", "Polymorphism", "Encapsulation", "Enumeration"],
+    "correctAnswer": 3
+  }
+]

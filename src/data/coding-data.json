@@ -1,0 +1,702 @@
+[
+  {
+    "id": "q1",
+    "round": 2,
+    "title": "Python - Division Error",
+    "language": "python",
+    "description": "Division by zero raises ZeroDivisionError. You must check the denominator before dividing.",
+    "startingCode": "x = 10\ny = 0\nprint(x / y)",
+    "correctedCode": "x = 10\ny = 0\nif y != 0:\n    print(x / y)\nelse:\n    print(\"Cannot divide by zero\")",
+    "testCases": [{ "input": "", "output": "Cannot divide by zero" }]
+  },
+  {
+    "id": "q2",
+    "round": 2,
+    "title": "Java - Misplaced Return",
+    "language": "java",
+    "description": "A method must return a value in all possible execution paths. The original code fails to return a value if 'a' is not greater than 0.",
+    "startingCode": "public class Main {\n    public static int add(int a, int b) {\n        if (a > 0)\n            return a + b;\n        System.out.println(\"Invalid\");\n    }\n}",
+    "correctedCode": "public class Main {\n    public static int add(int a, int b) {\n        if (a > 0) {\n            return a + b;\n        } else {\n            return -1;\n        }\n    }\n}",
+    "testCases": [{ "input": "add(-1, 5)", "output": "-1" }]
+  },
+  {
+    "id": "q3",
+    "round": 2,
+    "title": "Python - Wrong List Iteration",
+    "language": "python",
+    "description": "Removing elements from a list while iterating over it causes issues because the list's size and indices change mid-loop, leading to skipped elements.",
+    "startingCode": "nums = [1, 2, 3]\nfor i in range(len(nums)):\n    nums.remove(nums[i])\nprint(nums)",
+    "correctedCode": "nums = [1, 2, 3]\nfor i in nums[:]:\n    nums.remove(i)\nprint(nums)",
+    "testCases": [{ "input": "", "output": "[]" }]
+  },
+  {
+    "id": "q4",
+    "round": 2,
+    "title": "Java - NullPointer on String",
+    "language": "java",
+    "description": "Calling a method on a null reference will cause a NullPointerException. To safely compare, place the known string literal first.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        String s = null;\n        if (s.equals(\"hello\")) {\n            System.out.println(\"Yes\");\n        }\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        String s = null;\n        if (\"hello\".equals(s)) {\n            System.out.println(\"Yes\");\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q5",
+    "round": 2,
+    "title": "Python - Wrong Default Argument",
+    "language": "python",
+    "description": "Using a mutable object like a list as a default argument causes it to be shared across all function calls.",
+    "startingCode": "def append_item(val, arr=[]):\n    arr.append(val)\n    return arr\n\nprint(append_item(1))\nprint(append_item(2))",
+    "correctedCode": "def append_item(val, arr=None):\n    if arr is None:\n        arr = []\n    arr.append(val)\n    return arr\n\nprint(append_item(1))\nprint(append_item(2))",
+    "testCases": [{ "input": "append_item(1)", "output": "[1]" }, { "input": "append_item(2)", "output": "[2]" }]
+  },
+  {
+    "id": "q6",
+    "round": 2,
+    "title": "Java - Invalid Array Declaration",
+    "language": "java",
+    "description": "In Java, arrays are objects and must be instantiated using the 'new' keyword.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        int arr[5];\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        int[] arr = new int[5];\n    }\n}",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q7",
+    "round": 2,
+    "title": "Python - Recursion Without Base Case",
+    "language": "python",
+    "description": "Every recursive function must have a base case to terminate the recursion, otherwise it will lead to a stack overflow.",
+    "startingCode": "def f(n):\n    return f(n-1) + 1\n\nprint(f(5))",
+    "correctedCode": "def f(n):\n    if n == 0:\n        return 0\n    return f(n-1) + 1\n\nprint(f(5))",
+    "testCases": [{ "input": "f(5)", "output": "5" }]
+  },
+  {
+    "id": "q8",
+    "round": 2,
+    "title": "Java - Incorrect Exception Order",
+    "language": "java",
+    "description": "More specific exceptions must be caught before more general exceptions.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        try {\n            int x = 5/0;\n        } catch (Exception e) {\n            System.out.println(\"General\");\n        } catch (ArithmeticException e) {\n            System.out.println(\"Arithmetic\");\n        }\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        try {\n            int x = 5/0;\n        } catch (ArithmeticException e) {\n            System.out.println(\"Arithmetic\");\n        } catch (Exception e) {\n            System.out.println(\"General\");\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "Arithmetic" }]
+  },
+  {
+    "id": "q9",
+    "round": 2,
+    "title": "Python - Tuple Modification Error",
+    "language": "python",
+    "description": "Tuples are immutable and their elements cannot be reassigned.",
+    "startingCode": "t = (1, 2, 3)\nt[0] = 5",
+    "correctedCode": "# Tuples are immutable. To change it, you must create a new one.\nt = (5, 2, 3)",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q10",
+    "round": 2,
+    "title": "Java - Wrong Static Method Override",
+    "language": "java",
+    "description": "Static methods cannot be overridden, they are hidden. The method call is resolved at compile time based on the reference type.",
+    "startingCode": "class A {\n    static void show() {\n        System.out.println(\"A\");\n    }\n}\nclass B extends A {\n    static void show() {\n        System.out.println(\"B\");\n    }\n}\npublic class Main {\n    public static void main(String[] args) {\n        A obj = new B();\n        obj.show();\n    }\n}",
+    "correctedCode": "class A {\n    static void show() {\n        System.out.println(\"A\");\n    }\n}\nclass B extends A {\n    static void show() {\n        System.out.println(\"B\");\n    }\n}\npublic class Main {\n    public static void main(String[] args) {\n        B.show();\n    }\n}",
+    "testCases": [{ "input": "", "output": "B" }]
+  },
+  {
+    "id": "q11",
+    "round": 2,
+    "title": "Python - Index Error",
+    "language": "python",
+    "description": "Accessing an index that is out of the list's bounds will raise an IndexError.",
+    "startingCode": "arr = [1, 2, 3]\nprint(arr[3])",
+    "correctedCode": "arr = [1, 2, 3]\nprint(arr[2])",
+    "testCases": [{ "input": "", "output": "3" }]
+  },
+  {
+    "id": "q12",
+    "round": 2,
+    "title": "Java - Casting Error",
+    "language": "java",
+    "description": "An object cannot be cast to an incompatible type. A String cannot be cast to an Integer.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        Object o = \"hello\";\n        Integer n = (Integer) o;\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        Object o = \"hello\";\n        String n = (String) o;\n    }\n}",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q13",
+    "round": 2,
+    "title": "Python - Infinite While Loop",
+    "language": "python",
+    "description": "The loop variable must be updated within the loop to ensure the condition eventually becomes false.",
+    "startingCode": "i = 0\nwhile i < 5:\n    print(i)",
+    "correctedCode": "i = 0\nwhile i < 5:\n    print(i)\n    i += 1",
+    "testCases": [{ "input": "", "output": "0\n1\n2\n3\n4" }]
+  },
+  {
+    "id": "q14",
+    "round": 2,
+    "title": "Java - Using == for Strings",
+    "language": "java",
+    "description": "The '==' operator compares object references, not their content. Use the .equals() method for string content comparison.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        String a = new String(\"test\");\n        String b = new String(\"test\");\n        if (a == b) {\n            System.out.println(\"Equal\");\n        }\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        String a = new String(\"test\");\n        String b = new String(\"test\");\n        if (a.equals(b)) {\n            System.out.println(\"Equal\");\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "Equal" }]
+  },
+  {
+    "id": "q15",
+    "round": 2,
+    "title": "Python - Wrong Dict Iteration",
+    "language": "python",
+    "description": "To iterate over key-value pairs in a dictionary, you must use the .items() method.",
+    "startingCode": "d = {\"x\": 1, \"y\": 2}\nfor k, v in d:\n    print(k, v)",
+    "correctedCode": "d = {\"x\": 1, \"y\": 2}\nfor k, v in d.items():\n    print(k, v)",
+    "testCases": [{ "input": "", "output": "x 1\ny 2" }]
+  },
+  {
+    "id": "q16",
+    "round": 2,
+    "title": "Java - Abstract Class Instantiation",
+    "language": "java",
+    "description": "An abstract class cannot be instantiated directly. You must create an instance of a concrete subclass.",
+    "startingCode": "abstract class Animal {}\npublic class Main {\n    public static void main(String[] args) {\n        Animal a = new Animal();\n    }\n}",
+    "correctedCode": "abstract class Animal {}\nclass Dog extends Animal {}\npublic class Main {\n    public static void main(String[] args) {\n        Animal a = new Dog();\n    }\n}",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q17",
+    "round": 2,
+    "title": "Python - Wrong Indentation",
+    "language": "python",
+    "description": "Python uses indentation to define code blocks. The code within a function must be indented.",
+    "startingCode": "def greet():\nprint(\"Hello\")",
+    "correctedCode": "def greet():\n    print(\"Hello\")",
+    "testCases": [{ "input": "", "output": "Hello" }]
+  },
+  {
+    "id": "q18",
+    "round": 2,
+    "title": "Java - For Loop Error",
+    "language": "java",
+    "description": "The loop's update statement (i--) prevents the termination condition (i < 5) from ever being met.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        for (int i = 0; i < 5; i--) {\n            System.out.println(i);\n        }\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        for (int i = 0; i < 5; i++) {\n            System.out.println(i);\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "0\n1\n2\n3\n4" }]
+  },
+  {
+    "id": "q19",
+    "round": 2,
+    "title": "Python - Wrong Use of 'is'",
+    "language": "python",
+    "description": "'is' checks for object identity, while '==' checks for equality. For comparing values, especially for large integers, '==' should be used.",
+    "startingCode": "a = 1000\nb = 1000\nif a is b:\n    print(\"Same\")",
+    "correctedCode": "a = 1000\nb = 1000\nif a == b:\n    print(\"Same\")",
+    "testCases": [{ "input": "", "output": "Same" }]
+  },
+  {
+    "id": "q20",
+    "round": 2,
+    "title": "Java - Finally Misuse",
+    "language": "java",
+    "description": "A 'finally' block executes regardless of whether an exception is thrown. Without a 'catch' block, an unhandled exception will still crash the program.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        try {\n            int a = 5/0;\n        } finally {\n            System.out.println(\"Done\");\n        }\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        try {\n            int a = 5/0;\n        } catch (ArithmeticException e) {\n            System.out.println(\"Divide by zero\");\n        } finally {\n            System.out.println(\"Done\");\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "Divide by zero\nDone" }]
+  },
+  {
+    "id": "q21",
+    "round": 2,
+    "title": "Java - Iterator Misuse",
+    "language": "java",
+    "description": "Modifying a collection while iterating over it with an enhanced for-loop will cause a ConcurrentModificationException.",
+    "startingCode": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        List<Integer> list = new ArrayList<>(Arrays.asList(1,2,3));\n        for (Integer x : list) {\n            if (x == 2) list.remove(x);\n        }\n    }\n}",
+    "correctedCode": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        List<Integer> list = new ArrayList<>(Arrays.asList(1,2,3));\n        Iterator<Integer> it = list.iterator();\n        while (it.hasNext()) {\n            if (it.next() == 2) it.remove();\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q22",
+    "round": 2,
+    "title": "Python - Mutable Default Argument",
+    "language": "python",
+    "description": "Default arguments are created once when the function is defined. Using a mutable default argument can lead to unexpected behavior between calls.",
+    "startingCode": "def push(val, stack=[]):\n    stack.append(val)\n    return stack\n\nprint(push(1))\nprint(push(2))",
+    "correctedCode": "def push(val, stack=None):\n    if stack is None:\n        stack = []\n    stack.append(val)\n    return stack\n\nprint(push(1))\nprint(push(2))",
+    "testCases": [{ "input": "", "output": "[1]\n[2]" }]
+  },
+  {
+    "id": "q23",
+    "round": 2,
+    "title": "Java - Wrong Generic Type Cast",
+    "language": "java",
+    "description": "Casting an object to an incompatible type will result in a ClassCastException. Using generics helps prevent this at compile time.",
+    "startingCode": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        List list = new ArrayList();\n        list.add(\"Hello\");\n        Integer x = (Integer) list.get(0);\n    }\n}",
+    "correctedCode": "import java.util.*;\npublic class Main {\n    public static void main(String[] args) {\n        List<String> list = new ArrayList<>();\n        list.add(\"Hello\");\n        String x = list.get(0);\n    }\n}",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q24",
+    "round": 2,
+    "title": "Python - Wrong Dict Key Access",
+    "language": "python",
+    "description": "Accessing a dictionary key that doesn't exist will raise a KeyError. Use the .get() method for safe access.",
+    "startingCode": "d = {\"a\": 1}\nprint(d[\"b\"])",
+    "correctedCode": "d = {\"a\": 1}\nprint(d.get(\"b\", \"Not found\"))",
+    "testCases": [{ "input": "", "output": "Not found" }]
+  },
+  {
+    "id": "q25",
+    "round": 2,
+    "title": "Java - Array Index Error",
+    "language": "java",
+    "description": "Array indices are 0-based. Accessing an index equal to the array's length is out of bounds.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        int[] arr = {1,2,3};\n        System.out.println(arr[3]);\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        int[] arr = {1,2,3};\n        System.out.println(arr[2]);\n    }\n}",
+    "testCases": [{ "input": "", "output": "3" }]
+  },
+  {
+    "id": "q26",
+    "round": 2,
+    "title": "Python - Wrong Import",
+    "language": "python",
+    "description": "The name of the math module in Python is 'math', not 'maths'.",
+    "startingCode": "import maths\nprint(maths.sqrt(16))",
+    "correctedCode": "import math\nprint(math.sqrt(16))",
+    "testCases": [{ "input": "", "output": "4.0" }]
+  },
+  {
+    "id": "q27",
+    "round": 2,
+    "title": "Java - Recursion Bug",
+    "language": "java",
+    "description": "A recursive function must have a base case to stop the recursion.",
+    "startingCode": "public class Main {\n    static int fib(int n) {\n        return fib(n-1) + fib(n-2);\n    }\n    public static void main(String[] args) {\n        System.out.println(fib(5));\n    }\n}",
+    "correctedCode": "public class Main {\n    static int fib(int n) {\n        if (n <= 1) return n;\n        return fib(n-1) + fib(n-2);\n    }\n    public static void main(String[] args) {\n        System.out.println(fib(5));\n    }\n}",
+    "testCases": [{ "input": "", "output": "5" }]
+  },
+  {
+    "id": "q28",
+    "round": 2,
+    "title": "Python - Misusing 'is' for Integers",
+    "language": "python",
+    "description": "The 'is' operator checks for object identity. Python caches small integers, but for larger numbers, 'is' may return False even if values are equal.",
+    "startingCode": "x = 256\ny = 256\nprint(x is y)",
+    "correctedCode": "x = 256\ny = 256\nprint(x == y)",
+    "testCases": [{ "input": "", "output": "True" }]
+  },
+  {
+    "id": "q29",
+    "round": 2,
+    "title": "Java - File Not Closed",
+    "language": "java",
+    "description": "External resources like files must be closed to prevent resource leaks. The try-with-resources statement is the best way to handle this.",
+    "startingCode": "import java.io.*;\npublic class Main {\n    public static void main(String[] args) throws IOException {\n        FileReader fr = new FileReader(\"data.txt\");\n        BufferedReader br = new BufferedReader(fr);\n        System.out.println(br.readLine());\n    }\n}",
+    "correctedCode": "import java.io.*;\npublic class Main {\n    public static void main(String[] args) {\n        try (BufferedReader br = new BufferedReader(new FileReader(\"data.txt\"))) {\n            System.out.println(br.readLine());\n        } catch (IOException e) {\n            // In a real scenario, you'd create a dummy file or mock this.\n            System.out.println(\"No file to read, but code is correct.\");\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "No file to read, but code is correct." }]
+  },
+  {
+    "id": "q30",
+    "round": 2,
+    "title": "Python - Wrong Indexing",
+    "language": "python",
+    "description": "Accessing an index outside the valid range of a string will cause an IndexError.",
+    "startingCode": "s = \"python\"\nprint(s[10])",
+    "correctedCode": "s = \"python\"\nprint(s[-1])",
+    "testCases": [{ "input": "", "output": "n" }]
+  },
+  {
+    "id": "q31",
+    "round": 2,
+    "title": "Java - Wrong Use of ==",
+    "language": "java",
+    "description": "The '==' operator compares references for objects. Use .equals() to compare the content of strings.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        String s1 = \"abc\";\n        String s2 = new String(\"abc\");\n        if (s1 == s2) {\n            System.out.println(\"Same\");\n        }\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        String s1 = \"abc\";\n        String s2 = new String(\"abc\");\n        if (s1.equals(s2)) {\n            System.out.println(\"Same\");\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "Same" }]
+  },
+  {
+    "id": "q32",
+    "round": 2,
+    "title": "Python - Missing Colon",
+    "language": "python",
+    "description": "A colon ':' is required at the end of a function definition line.",
+    "startingCode": "def square(n)\n    return n*n",
+    "correctedCode": "def square(n):\n    return n*n",
+    "testCases": [{ "input": "square(5)", "output": "25" }]
+  },
+  {
+    "id": "q33",
+    "round": 2,
+    "title": "Java - Wrong Loop Condition",
+    "language": "java",
+    "description": "The loop condition 'i > 5' is initially false, so the loop body will never execute.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        for (int i = 0; i > 5; i++) {\n            System.out.println(i);\n        }\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        for (int i = 0; i < 5; i++) {\n            System.out.println(i);\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "0\n1\n2\n3\n4" }]
+  },
+  {
+    "id": "q34",
+    "round": 2,
+    "title": "Python - Modifying List While Iterating",
+    "language": "python",
+    "description": "Removing items from a list while iterating over it can lead to skipping elements.",
+    "startingCode": "nums = [1, 2, 3, 4]\nfor n in nums:\n    if n % 2 == 0:\n        nums.remove(n)\nprint(nums)",
+    "correctedCode": "nums = [1, 2, 3, 4]\nnums = [n for n in nums if n % 2 != 0]\nprint(nums)",
+    "testCases": [{ "input": "", "output": "[1, 3]" }]
+  },
+  {
+    "id": "q35",
+    "round": 2,
+    "title": "Java - Missing break in Switch",
+    "language": "java",
+    "description": "Without a 'break' statement, a switch case will 'fall through' and execute the code in subsequent cases.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        int x = 2;\n        switch(x) {\n            case 1: System.out.println(\"One\");\n            case 2: System.out.println(\"Two\");\n            case 3: System.out.println(\"Three\");\n        }\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        int x = 2;\n        switch(x) {\n            case 1: System.out.println(\"One\"); break;\n            case 2: System.out.println(\"Two\"); break;\n            case 3: System.out.println(\"Three\"); break;\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "Two" }]
+  },
+  {
+    "id": "q36",
+    "round": 2,
+    "title": "Python - Wrong Set Syntax",
+    "language": "python",
+    "description": "Using empty curly braces {} creates an empty dictionary, not a set. Use the set() constructor.",
+    "startingCode": "s = {}\nprint(type(s))",
+    "correctedCode": "s = set()\nprint(type(s))",
+    "testCases": [{ "input": "", "output": "<class 'set'>" }]
+  },
+  {
+    "id": "q37",
+    "round": 2,
+    "title": "Java - Wrong Catch Order",
+    "language": "java",
+    "description": "A more general exception cannot be caught before a more specific one.",
+    "startingCode": "try {\n    String s = null;\n    System.out.println(s.length());\n} catch (Exception e) {\n    System.out.println(\"General\");\n} catch (NullPointerException e) {\n    System.out.println(\"Null\");\n}",
+    "correctedCode": "try {\n    String s = null;\n    System.out.println(s.length());\n} catch (NullPointerException e) {\n    System.out.println(\"Null\");\n} catch (Exception e) {\n    System.out.println(\"General\");\n}",
+    "testCases": [{ "input": "", "output": "Null" }]
+  },
+  {
+    "id": "q38",
+    "round": 2,
+    "title": "Python - Integer Division Confusion",
+    "language": "python",
+    "description": "In Python 3, the '/' operator performs float division. Use '//' for integer division.",
+    "startingCode": "print(5 / 2)",
+    "correctedCode": "print(5 // 2)",
+    "testCases": [{ "input": "", "output": "2" }]
+  },
+  {
+    "id": "q39",
+    "round": 2,
+    "title": "Java - Uninitialized Variable",
+    "language": "java",
+    "description": "Local variables in Java must be initialized before they are used.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        int x;\n        System.out.println(x);\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        int x = 0;\n        System.out.println(x);\n    }\n}",
+    "testCases": [{ "input": "", "output": "0" }]
+  },
+  {
+    "id": "q40",
+    "round": 2,
+    "title": "Python - Function Misuse",
+    "language": "python",
+    "description": "If a function is defined with required arguments, they must be provided when the function is called.",
+    "startingCode": "def greet(name):\n    print(\"Hello \" + name)\n\ngreet() Alice",
+    "correctedCode": "def greet(name):\n    print(\"Hello \" + name)\n\ngreet(\"Alice\")",
+    "testCases": [{ "input": "", "output": "Hello Alice" }]
+  },
+  {
+    "id": "q41",
+    "round": 2,
+    "title": "Java - Wrong Array Declaration",
+    "language": "java",
+    "description": "The correct syntax for declaring and initializing an array in Java uses square brackets and the 'new' keyword.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        int arr(5);\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        int[] arr = new int[5];\n    }\n}",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q42",
+    "round": 2,
+    "title": "Python - Shadowing Built-in Function",
+    "language": "python",
+    "description": "Avoid using variable names that shadow built-in functions like 'list', as it can lead to TypeErrors.",
+    "startingCode": "list = [1, 2, 3]\nprint(list([4, 5]))",
+    "correctedCode": "nums = [1, 2, 3]\nprint(list([4, 5]))",
+    "testCases": [{ "input": "", "output": "[4, 5]" }]
+  },
+  {
+    "id": "q43",
+    "round": 2,
+    "title": "Java - Wrong String Split",
+    "language": "java",
+    "description": "The split method in Java uses regular expressions. A dot '.' is a special character and needs to be escaped.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        String s = \"a.b.c\";\n        String[] arr = s.split(\".\");\n        System.out.println(arr.length);\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        String s = \"a.b.c\";\n        String[] arr = s.split(\"\\\\.\");\n        System.out.println(arr.length);\n    }\n}",
+    "testCases": [{ "input": "", "output": "3" }]
+  },
+  {
+    "id": "q44",
+    "round": 2,
+    "title": "Python - Integer Overflow Assumption",
+    "language": "python",
+    "description": "Python's integers have arbitrary precision, meaning they don't overflow like in other languages.",
+    "startingCode": "x = 10**1000\nprint(x * 2)",
+    "correctedCode": "x = 10**1000\nprint(x * 2)",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q45",
+    "round": 2,
+    "title": "Java - Static Context Error",
+    "language": "java",
+    "description": "A non-static variable cannot be referenced from a static context. An object instance is required.",
+    "startingCode": "public class Main {\n    int x = 10;\n    public static void main(String[] args) {\n        System.out.println(x);\n    }\n}",
+    "correctedCode": "public class Main {\n    int x = 10;\n    public static void main(String[] args) {\n        Main obj = new Main();\n        System.out.println(obj.x);\n    }\n}",
+    "testCases": [{ "input": "", "output": "10" }]
+  },
+  {
+    "id": "q46",
+    "round": 2,
+    "title": "Python - Tuple Modification Error",
+    "language": "python",
+    "description": "Tuples are immutable; their elements cannot be changed after creation.",
+    "startingCode": "t = (1, 2, 3)\nt[0] = 5",
+    "correctedCode": "# Tuples are immutable. You must create a new one.\nt = (5, 2, 3)",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q47",
+    "round": 2,
+    "title": "Java - Wrong Character Comparison",
+    "language": "java",
+    "description": "In Java, single quotes are for 'char' literals and double quotes are for 'String' literals.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        char ch = 'a';\n        if (ch == \"a\") {\n            System.out.println(\"yes\");\n        }\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        char ch = 'a';\n        if (ch == 'a') {\n            System.out.println(\"yes\");\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "yes" }]
+  },
+  {
+    "id": "q48",
+    "round": 2,
+    "title": "Python - Range Misuse",
+    "language": "python",
+    "description": "The range function with a negative step requires the start argument to be greater than the stop argument.",
+    "startingCode": "for i in range(1, 5, -1):\n    print(i)",
+    "correctedCode": "for i in range(5, 0, -1):\n    print(i)",
+    "testCases": [{ "input": "", "output": "5\n4\n3\n2\n1" }]
+  },
+  {
+    "id": "q49",
+    "round": 2,
+    "title": "Java - Division by Zero in Integer",
+    "language": "java",
+    "description": "Dividing an integer by zero in Java throws an ArithmeticException.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        int x = 10 / 0;\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        try {\n            int x = 10 / 0;\n        } catch (ArithmeticException e) {\n            System.out.println(\"Error: Division by zero.\");\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "Error: Division by zero." }]
+  },
+  {
+    "id": "q50",
+    "round": 2,
+    "title": "Python - Mixing Types in Sort",
+    "language": "python",
+    "description": "Python's sort method cannot compare elements of different, incompatible types like integers and strings.",
+    "startingCode": "arr = [1, \"two\", 3]\narr.sort()",
+    "correctedCode": "arr = [1, 3, 2] # Or handle conversion\narr_str = [str(x) for x in arr]\narr_str.sort()\nprint(arr_str)",
+    "testCases": [{ "input": "", "output": "['1', '2', '3']" }]
+  },
+  {
+    "id": "q51",
+    "round": 2,
+    "title": "Java - Missing Return in Non-Void Method",
+    "language": "java",
+    "description": "A method with a non-void return type must have a return statement for all possible code paths.",
+    "startingCode": "public class Main {\n    static int add(int a, int b) {\n        System.out.println(a+b);\n    }\n}",
+    "correctedCode": "public class Main {\n    static int add(int a, int b) {\n        return a + b;\n    }\n}",
+    "testCases": [{ "input": "add(2,3)", "output": "5" }]
+  },
+  {
+    "id": "q52",
+    "round": 2,
+    "title": "Python - Misusing None in Math",
+    "language": "python",
+    "description": "Arithmetic operations cannot be performed with 'None'.",
+    "startingCode": "x = None + 5",
+    "correctedCode": "x = 0 + 5\nprint(x)",
+    "testCases": [{ "input": "", "output": "5" }]
+  },
+  {
+    "id": "q53",
+    "round": 2,
+    "title": "Java - Wrong Boolean Assignment",
+    "language": "java",
+    "description": "In Java, booleans can only be 'true' or 'false', not integer values like 1 or 0.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        boolean flag = 1;\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        boolean flag = true;\n    }\n}",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q54",
+    "round": 2,
+    "title": "Python - Mutable String Error",
+    "language": "python",
+    "description": "Strings in Python are immutable and cannot be changed in place.",
+    "startingCode": "s = \"hello\"\ns[0] = \"H\"",
+    "correctedCode": "s = \"hello\"\ns = \"H\" + s[1:]\nprint(s)",
+    "testCases": [{ "input": "", "output": "Hello" }]
+  },
+  {
+    "id": "q55",
+    "round": 2,
+    "title": "Java - Null Reference Error",
+    "language": "java",
+    "description": "Calling any method on a null reference will result in a NullPointerException.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        String s = null;\n        System.out.println(s.length());\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        String s = null;\n        if (s != null) {\n            System.out.println(s.length());\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q56",
+    "round": 2,
+    "title": "Python - Misusing append",
+    "language": "python",
+    "description": "The .append() method adds its argument as a single element. To add all items from another list, use .extend().",
+    "startingCode": "nums = [1, 2]\nnums.append([3, 4])\nprint(nums)",
+    "correctedCode": "nums = [1, 2]\nnums.extend([3, 4])\nprint(nums)",
+    "testCases": [{ "input": "", "output": "[1, 2, 3, 4]" }]
+  },
+  {
+    "id": "q57",
+    "round": 2,
+    "title": "Java - Wrong Use of Final Variable",
+    "language": "java",
+    "description": "A 'final' variable can only be assigned a value once.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        final int x;\n        x = 5;\n        x = 10;\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        final int x = 5;\n    }\n}",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q58",
+    "round": 2,
+    "title": "Python - Wrong Indentation",
+    "language": "python",
+    "description": "The body of a function in Python must be indented.",
+    "startingCode": "def foo():\nprint(\"hello\")",
+    "correctedCode": "def foo():\n    print(\"hello\")\n\nfoo()",
+    "testCases": [{ "input": "", "output": "hello" }]
+  },
+  {
+    "id": "q59",
+    "round": 2,
+    "title": "Java - Infinite Recursion",
+    "language": "java",
+    "description": "A recursive function without a base case to stop its execution will lead to a StackOverflowError.",
+    "startingCode": "public class Main {\n    static void hello() {\n        hello();\n    }\n    public static void main(String[] args) {\n        hello();\n    }\n}",
+    "correctedCode": "public class Main {\n    static void hello(int count) {\n        if (count == 0) return;\n        System.out.println(\"hi\");\n        hello(count - 1);\n    }\n    public static void main(String[] args) {\n        hello(1);\n    }\n}",
+    "testCases": [{ "input": "", "output": "hi" }]
+  },
+  {
+    "id": "q60",
+    "round": 2,
+    "title": "Python - Wrong Lambda Usage",
+    "language": "python",
+    "description": "A lambda function requires all its defined arguments to be passed when called.",
+    "startingCode": "f = lambda x, y: x + y\nprint(f(5))",
+    "correctedCode": "f = lambda x, y: x + y\nprint(f(5, 10))",
+    "testCases": [{ "input": "", "output": "15" }]
+  },
+  {
+    "id": "q61",
+    "round": 2,
+    "title": "Python - Wrong Function Default",
+    "language": "python",
+    "description": "A default argument in a function definition must have a value.",
+    "startingCode": "def add(x, y=):\n    return x + y",
+    "correctedCode": "def add(x, y=0):\n    return x + y\n\nprint(add(5))",
+    "testCases": [{ "input": "", "output": "5" }]
+  },
+  {
+    "id": "q62",
+    "round": 2,
+    "title": "Java - Wrong Array Access",
+    "language": "java",
+    "description": "Accessing an array with an index that is out of its bounds will cause an ArrayIndexOutOfBoundsException.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        int[] arr = new int[3];\n        arr[3] = 10;\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        int[] arr = new int[3];\n        arr[2] = 10;\n    }\n}",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q63",
+    "round": 2,
+    "title": "Python - Division Error",
+    "language": "python",
+    "description": "Attempting to divide by zero will raise a ZeroDivisionError.",
+    "startingCode": "x = 5 / 0",
+    "correctedCode": "try:\n    x = 5 / 0\nexcept ZeroDivisionError:\n    print(\"Cannot divide by zero\")",
+    "testCases": [{ "input": "", "output": "Cannot divide by zero" }]
+  },
+  {
+    "id": "q64",
+    "round": 2,
+    "title": "Java - String Comparison Bug",
+    "language": "java",
+    "description": "Using '==' on strings compares their memory addresses, not their content. The .equals() method should be used.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        String s1 = new String(\"hi\");\n        String s2 = new String(\"hi\");\n        if (s1 == s2) {\n            System.out.println(\"equal\");\n        }\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        String s1 = new String(\"hi\");\n        String s2 = new String(\"hi\");\n        if (s1.equals(s2)) {\n            System.out.println(\"equal\");\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "equal" }]
+  },
+  {
+    "id": "q65",
+    "round": 2,
+    "title": "Python - Variable Before Assignment",
+    "language": "python",
+    "description": "A variable cannot be used before it has been assigned a value.",
+    "startingCode": "print(x)\nx = 10",
+    "correctedCode": "x = 10\nprint(x)",
+    "testCases": [{ "input": "", "output": "10" }]
+  },
+  {
+    "id": "q66",
+    "round": 2,
+    "title": "Java - Casting Error",
+    "language": "java",
+    "description": "It's not possible to cast an object of one class to another, unrelated class.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        Object o = \"hello\";\n        Integer x = (Integer) o;\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        Object o = \"hello\";\n        if(o instanceof String) {\n            String s = (String) o;\n            System.out.println(s);\n        }\n    }\n}",
+    "testCases": [{ "input": "", "output": "hello" }]
+  },
+  {
+    "id": "q67",
+    "round": 2,
+    "title": "Python - Wrong Use of break",
+    "language": "python",
+    "description": "The 'break' keyword can only be used inside a loop.",
+    "startingCode": "def foo():\n    break",
+    "correctedCode": "def foo():\n    # Break can only be used in a loop. Correcting by removing it.\n    return",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q68",
+    "round": 2,
+    "title": "Java - Using super in Static Context",
+    "language": "java",
+    "description": "The 'super' keyword cannot be used in a static context, as it refers to the parent object's instance.",
+    "startingCode": "class Parent {}\nclass Child extends Parent {\n    public static void main(String[] args) {\n        super.toString();\n    }\n}",
+    "correctedCode": "class Parent {}\nclass Child extends Parent {\n    public void doSomething(){\n        super.toString();\n    }\n    public static void main(String[] args) {\n        new Child().doSomething();\n    }\n}",
+    "testCases": [{ "input": "", "output": "" }]
+  },
+  {
+    "id": "q69",
+    "round": 2,
+    "title": "Python - Wrong Import",
+    "language": "python",
+    "description": "The module for mathematical functions in Python is named 'math'.",
+    "startingCode": "import maths\nprint(maths.sqrt(4))",
+    "correctedCode": "import math\nprint(math.sqrt(4))",
+    "testCases": [{ "input": "", "output": "2.0" }]
+  },
+  {
+    "id": "q70",
+    "round": 2,
+    "title": "Java - Unreachable Code",
+    "language": "java",
+    "description": "Any code after a 'return' statement within the same block is considered unreachable and will cause a compilation error.",
+    "startingCode": "public class Main {\n    public static void main(String[] args) {\n        return;\n        System.out.println(\"hi\");\n    }\n}",
+    "correctedCode": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"hi\");\n        return;\n    }\n}",
+    "testCases": [{ "input": "", "output": "hi" }]
+  }
+]
