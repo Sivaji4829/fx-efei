@@ -8,7 +8,7 @@ import Thankyou from './pages/Thankyou';
 import Terminated from './pages/Terminated';
 import LostGame from './pages/LostGame'; // Import the new component
 
-const API_URL = 'http://localhost:3001/api'; // Base URL for the backend API
+const API_URL = '/api'; // Base URL for the backend API
 
 // Helper function to read initial state from localStorage
 const getInitialState = () => {
