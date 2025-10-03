@@ -1,121 +1,72 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
 const cors = require('cors');
+const { createClient } = require('@vercel/kv');
 
 const app = express();
 const PORT = 3001;
 
-const DATA_DIR = path.join(__dirname, 'data');
-const USERS_FILE_PATH = path.join(DATA_DIR, 'users.json');
+// --- Database Setup ---
+// This creates a client that will automatically use your Vercel KV credentials
+// when deployed.
+const kv = createClient({
+  url: process.env.KV_REST_API_URL,
+  token: process.env.KV_REST_API_TOKEN,
+});
 
-// --- INITIAL SERVER SETUP ---
-// Ensures the data directory and a default users.json file exist on startup.
-try {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR);
-  }
-  if (!fs.existsSync(USERS_FILE_PATH)) {
-    // If no users file exists, create one with a default structure.
-    fs.writeFileSync(USERS_FILE_PATH, JSON.stringify([{ "uid": "TEST-UID", "used": false }]));
-    console.log("Created 'users.json' with a default entry.");
-  }
-} catch (error) {
-  console.error("FATAL: Could not initialize data directory or file.", error);
-  process.exit(1); // Exit if storage can't be set up.
-}
+// A Redis Set is used to store the unique UIDs.
+const USED_UIDS_KEY = 'used-uids';
 
-// --- MIDDLEWARE ---
-app.use(cors()); // Allows requests from the frontend.
-app.use(express.json()); // Parses incoming JSON bodies.
 
-// --- UTILITY FUNCTIONS ---
-// Reads the user data from the JSON file.
-const readUsers = () => {
-  try {
-    const fileData = fs.readFileSync(USERS_FILE_PATH, 'utf8');
-    return JSON.parse(fileData);
-  } catch (error) {
-    console.error("Could not read users file. Returning empty array as a fallback.", error);
-    return [];
-  }
-};
-
-// Writes the user data back to the JSON file.
-const writeUsers = (users) => {
-  try {
-    // The 'null, 2' argument formats the JSON file to be human-readable.
-    fs.writeFileSync(USERS_FILE_PATH, JSON.stringify(users, null, 2));
-    console.log(`SUCCESS: Wrote ${users.length} user objects to users.json.`);
-  } catch (error)
-  {
-    console.error("FATAL: Could not write to users file:", error);
-  }
-};
+// --- Middleware ---
+app.use(cors());
+app.use(express.json());
 
 // --- API ROUTES ---
 
-// Endpoint to validate a UID at login.
-app.post('/api/login', (req, res) => {
+// Route to validate a UID at login.
+app.post('/api/login', async (req, res) => {
   const { uid } = req.body;
-  console.log(`[LOGIN ATTEMPT] Received UID: "${uid}"`);
-
   if (!uid) {
     return res.status(400).json({ success: false, message: 'UID is required.' });
   }
 
-  const users = readUsers();
-  const user = users.find(u => u.uid === uid);
-
-  // 1. Check if the UID is valid (exists in the file)
-  if (!user) {
-    console.log(`[LOGIN REJECTED] UID "${uid}" is not a valid participant.`);
-    return res.status(404).json({ success: false, message: 'Invalid UID. Please check your credentials and try again.' });
-  }
-
-  // 2. Check if the UID has already been used
-  if (user.used) {
-    console.log(`[LOGIN REJECTED] UID "${uid}" has already been used.`);
-    return res.status(409).json({ success: false, message: 'This UID has already been used. Each UID can access the test only once.' });
-  }
-
-  // 3. If valid and not used, allow login
-  console.log(`[LOGIN SUCCESS] UID "${uid}" is valid and has not been used.`);
-  return res.status(200).json({ success: true, message: 'UID is valid.' });
-});
-
-// Endpoint to mark a UID as 'used' once the test is finished or terminated.
-app.post('/api/complete', (req, res) => {
-  const { uid } = req.body;
-  console.log(`[COMPLETE REQUEST] Received UID: "${uid}"`);
-
-  if (!uid) {
-    console.error('[COMPLETE FAILED] Request body did not contain a UID.');
-    return res.status(400).json({ success: false, message: 'UID is required.' });
-  }
-
-  const users = readUsers();
-  const userIndex = users.findIndex(u => u.uid === uid);
-
-  if (userIndex !== -1) {
-    if (!users[userIndex].used) {
-        users[userIndex].used = true;
-        console.log(`[COMPLETE REQUEST] Marking UID "${uid}" as used.`);
-        writeUsers(users); // Save the updated user list to the file.
-        return res.status(200).json({ success: true, message: 'UID has been successfully recorded.' });
-    } else {
-        console.log(`[COMPLETE IGNORED] UID "${uid}" was already marked as used.`);
-        return res.status(200).json({ success: true, message: 'UID was already recorded.' });
+  try {
+    // Check if the UID is a member of our 'used-uids' set in the database.
+    const isMember = await kv.sismember(USED_UIDS_KEY, uid);
+    if (isMember) {
+      return res.status(409).json({ success: false, message: 'This UID has already been used.' });
     }
-  } else {
-    // This case should ideally not be reached if the login system is working.
-    console.error(`[COMPLETE FAILED] UID "${uid}" not found in the user list.`);
-    return res.status(404).json({ success: false, message: 'UID not found.' });
+    
+    // If you are using a pre-approved list, you would check against that here first.
+    // For now, we just confirm it's not in the used list.
+    return res.status(200).json({ success: true, message: 'UID is valid.' });
+
+  } catch (error) {
+    console.error('KV Database error during login:', error);
+    return res.status(500).json({ success: false, message: 'A database error occurred.' });
   }
 });
 
-// --- SERVER START ---
+// Route to record a UID once the test is finished or terminated.
+app.post('/api/complete', async (req, res) => {
+  const { uid } = req.body;
+  if (!uid) {
+    return res.status(400).json({ success: false, message: 'UID is required.' });
+  }
+
+  try {
+    // 'sadd' adds the UID to the 'used-uids' set. If it's already there, it does nothing.
+    await kv.sadd(USED_UIDS_KEY, uid);
+    return res.status(200).json({ success: true, message: 'UID has been successfully recorded.' });
+  } catch (error) {
+    console.error('KV Database error during completion:', error);
+    return res.status(500).json({ success: false, message: 'A database error occurred.' });
+  }
+});
+
+
+// --- Server Start ---
+// This is used for local development. Vercel will run this file as a serverless function.
 app.listen(PORT, () => {
   console.log(`Backend server is running on http://localhost:${PORT}`);
 });
-
