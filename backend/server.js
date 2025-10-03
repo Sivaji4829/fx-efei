@@ -1,17 +1,21 @@
 const express = require('express');
 const cors = require('cors');
-const { createClient } = require('@vercel/kv');
+const { createClient } = require('redis');
 
 const app = express();
 const PORT = 3001;
 
 // --- Database Setup ---
-// This creates a client that will automatically use your Vercel KV credentials
-// when deployed.
-const kv = createClient({
-  url: process.env.KV_REST_API_URL,
-  token: process.env.KV_REST_API_TOKEN,
+// This creates a standard Redis client. It will use the REDIS_URL from your
+// environment variables when deployed on Vercel.
+const redisClient = createClient({
+  url: process.env.REDIS_URL
 });
+
+redisClient.on('error', err => console.log('Redis Client Error', err));
+
+// Connect to the database as soon as the server starts.
+redisClient.connect();
 
 // A Redis Set is used to store the unique UIDs.
 const USED_UIDS_KEY = 'used-uids';
@@ -32,17 +36,15 @@ app.post('/api/login', async (req, res) => {
 
   try {
     // Check if the UID is a member of our 'used-uids' set in the database.
-    const isMember = await kv.sismember(USED_UIDS_KEY, uid);
+    const isMember = await redisClient.sIsMember(USED_UIDS_KEY, uid);
     if (isMember) {
       return res.status(409).json({ success: false, message: 'This UID has already been used.' });
     }
     
-    // If you are using a pre-approved list, you would check against that here first.
-    // For now, we just confirm it's not in the used list.
     return res.status(200).json({ success: true, message: 'UID is valid.' });
 
   } catch (error) {
-    console.error('KV Database error during login:', error);
+    console.error('Redis error during login:', error);
     return res.status(500).json({ success: false, message: 'A database error occurred.' });
   }
 });
@@ -55,11 +57,11 @@ app.post('/api/complete', async (req, res) => {
   }
 
   try {
-    // 'sadd' adds the UID to the 'used-uids' set. If it's already there, it does nothing.
-    await kv.sadd(USED_UIDS_KEY, uid);
+    // 'sAdd' adds the UID to the 'used-uids' set. If it's already there, it does nothing.
+    await redisClient.sAdd(USED_UIDS_KEY, uid);
     return res.status(200).json({ success: true, message: 'UID has been successfully recorded.' });
   } catch (error) {
-    console.error('KV Database error during completion:', error);
+    console.error('Redis error during completion:', error);
     return res.status(500).json({ success: false, message: 'A database error occurred.' });
   }
 });
@@ -70,3 +72,4 @@ app.post('/api/complete', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Backend server is running on http://localhost:${PORT}`);
 });
+

@@ -7,8 +7,9 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "@vercel/kv": "^1.0.1",
     "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "redis": "^4.6.13"
   }
 }
+
