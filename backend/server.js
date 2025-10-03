@@ -1,25 +1,48 @@
 const express = require('express');
 const cors = require('cors');
-const { createClient } = require('redis');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const app = express();
 const PORT = 3001;
 
-// --- Database Setup ---
-// This creates a standard Redis client. It will use the REDIS_URL from your
-// environment variables when deployed on Vercel.
-const redisClient = createClient({
-  url: process.env.REDIS_URL
+// --- Database Setup (Updated with Modern Options) ---
+// This will use the MONGODB_URI from your Vercel environment variables.
+const uri = process.env.MONGODB_URI;
+if (!uri) {
+  throw new Error('Missing MONGODB_URI environment variable. Please set it in your Vercel project settings.');
+}
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
 });
 
-redisClient.on('error', err => console.log('Redis Client Error', err));
+let db;
+let usedUidsCollection;
 
-// Connect to the database as soon as the server starts.
-redisClient.connect();
-
-// A Redis Set is used to store the unique UIDs.
-const USED_UIDS_KEY = 'used-uids';
-
+// This function connects to the database and sets up the collections.
+async function connectToDb() {
+  try {
+    // Only connect if we haven't already established a connection.
+    if (!db) {
+      await client.connect();
+      // Send a ping to confirm a successful connection
+      await client.db("admin").command({ ping: 1 });
+      console.log("Pinged your deployment. You successfully connected to MongoDB!");
+      
+      db = client.db("escapeIsland"); // The database name
+      usedUidsCollection = db.collection("used_uids"); // The collection name
+    }
+  } catch (error) {
+    console.error("Failed to connect to MongoDB", error);
+    // Re-throw the error so the API routes can handle it gracefully.
+    throw error;
+  }
+}
 
 // --- Middleware ---
 app.use(cors());
@@ -29,47 +52,56 @@ app.use(express.json());
 
 // Route to validate a UID at login.
 app.post('/api/login', async (req, res) => {
-  const { uid } = req.body;
-  if (!uid) {
-    return res.status(400).json({ success: false, message: 'UID is required.' });
-  }
-
   try {
-    // Check if the UID is a member of our 'used-uids' set in the database.
-    const isMember = await redisClient.sIsMember(USED_UIDS_KEY, uid);
-    if (isMember) {
+    await connectToDb(); // Ensure DB is connected
+    const { uid } = req.body;
+    if (!uid) {
+      return res.status(400).json({ success: false, message: 'UID is required.' });
+    }
+
+    const existingUid = await usedUidsCollection.findOne({ uid: uid });
+    if (existingUid) {
       return res.status(409).json({ success: false, message: 'This UID has already been used.' });
     }
     
     return res.status(200).json({ success: true, message: 'UID is valid.' });
 
   } catch (error) {
-    console.error('Redis error during login:', error);
-    return res.status(500).json({ success: false, message: 'A database error occurred.' });
+    console.error('MongoDB error during login:', error);
+    return res.status(500).json({ success: false, message: 'A database server error occurred during login.' });
   }
 });
 
 // Route to record a UID once the test is finished or terminated.
 app.post('/api/complete', async (req, res) => {
-  const { uid } = req.body;
-  if (!uid) {
-    return res.status(400).json({ success: false, message: 'UID is required.' });
-  }
-
   try {
-    // 'sAdd' adds the UID to the 'used-uids' set. If it's already there, it does nothing.
-    await redisClient.sAdd(USED_UIDS_KEY, uid);
+    await connectToDb(); // Ensure DB is connected
+    const { uid } = req.body;
+    if (!uid) {
+      return res.status(400).json({ success: false, message: 'UID is required.' });
+    }
+
+    await usedUidsCollection.updateOne(
+      { uid: uid },
+      { $setOnInsert: { uid: uid, timestamp: new Date() } },
+      { upsert: true }
+    );
+    
     return res.status(200).json({ success: true, message: 'UID has been successfully recorded.' });
+
   } catch (error) {
-    console.error('Redis error during completion:', error);
-    return res.status(500).json({ success: false, message: 'A database error occurred.' });
+    console.error('MongoDB error during completion:', error);
+    return res.status(500).json({ success: false, message: 'A database server error occurred during completion.' });
   }
 });
 
 
-// --- Server Start ---
-// This is used for local development. Vercel will run this file as a serverless function.
-app.listen(PORT, () => {
-  console.log(`Backend server is running on http://localhost:${PORT}`);
-});
+// --- Server Start (for local development) ---
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Backend server is running for local development on http://localhost:${PORT}`);
+  });
+}
 
+// Export the app for Vercel's serverless environment
+module.exports = app;
