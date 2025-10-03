@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 // --- ADMIN CONFIGURATION ---
 // These are special codes that can bypass the termination lock.
-// In a real application, these would be managed securely on a backend.
 const ADMIN_RESUME_CODES = ["DFX-CIT-100", "DFX-CIT-202", "DFX-CIT-2025"];
 
 const Terminated = ({ reason }) => {
@@ -12,9 +11,11 @@ const Terminated = ({ reason }) => {
   const handleResumeAttempt = (e) => {
     e.preventDefault();
     if (ADMIN_RESUME_CODES.includes(resumeCode)) {
-      // Clear the termination flag from localStorage
-      localStorage.removeItem('terminationInfo');
-      // Reload the application to return to the login screen
+      // --- DEFINITIVE FIX ---
+      // This removes the correct key from localStorage that the App.jsx component checks for.
+      localStorage.removeItem('terminationInfo_escapeIsland');
+      
+      // Reload the application. It will now default to the login screen.
       window.location.reload();
     } else {
       setError('Invalid resume code. Please try again.');
