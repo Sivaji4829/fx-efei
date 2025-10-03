@@ -6,9 +6,11 @@ import Level2 from './pages/Level2';
 import Level3 from './pages/Level3';
 import Thankyou from './pages/Thankyou';
 import Terminated from './pages/Terminated';
-import LostGame from './pages/LostGame'; // Import the new component
+import LostGame from './pages/LostGame';
 
-const API_URL = '/api'; // Base URL for the backend API
+// --- DEFINITIVE FIX FOR DEPLOYMENT ---
+// By using a relative path, this will work on both localhost and Vercel.
+const API_URL = '/api'; 
 
 // Helper function to read initial state from localStorage
 const getInitialState = () => {
@@ -47,17 +49,11 @@ function App() {
     }
     console.log(`%cFRONTEND: Attempting to finalize and record UID: ${currentUid}`, "color: yellow; font-weight: bold;");
     try {
-      const response = await fetch(`${API_URL}/complete`, {
+      await fetch(`${API_URL}/complete`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ uid: currentUid }),
       });
-      if (response.ok) {
-        console.log(`%cFRONTEND: Successfully sent completion signal for UID: ${currentUid}`, "color: green;");
-      } else {
-        const data = await response.json();
-        console.error(`%cFRONTEND: Server responded with an error for UID completion: ${response.status}`, "color: red;", data.message);
-      }
     } catch (error) {
       console.error("%cFRONTEND: Network error failed to record UID completion:", "color: red;", error);
     }
@@ -73,15 +69,10 @@ function App() {
     finalizeTestAndRecordUid(uid);
     setTerminationReason(reason);
     setGameState('terminated');
-    // The fullscreen management useEffect will handle exiting fullscreen automatically.
   }, [gameState, uid, finalizeTestAndRecordUid]);
   
-  // This useEffect handles the anti-cheat rules.
   useEffect(() => {
-    // Only apply rules when the user is in an active test level.
-    if (!gameState.startsWith('level')) {
-      return;
-    }
+    if (!gameState.startsWith('level')) return;
     
     const handleFullscreenChange = () => { if (!document.fullscreenElement) handleTerminate('Exited fullscreen mode.'); };
     const handleVisibilityChange = () => { if (document.visibilityState === 'hidden') handleTerminate('Switched to another tab or window.'); };
@@ -103,7 +94,6 @@ function App() {
     };
   }, [gameState, handleTerminate]);
   
-  // This new useEffect declaratively manages the fullscreen state.
   useEffect(() => {
     const requiresFullscreen = gameState.startsWith('level');
     
@@ -111,7 +101,6 @@ function App() {
       document.documentElement.requestFullscreen().catch(err => {
         console.error("Could not enter fullscreen:", err);
         setError("Fullscreen is required to start the test. Please enable it and try again.");
-        setGameState(prev => prev.replace('level', 'intro')); // Revert to intro screen on failure
       });
     } else if (!requiresFullscreen && document.fullscreenElement) {
       document.exitFullscreen().catch(err => console.error("Could not exit fullscreen:", err));
@@ -147,7 +136,7 @@ function App() {
 
   const startLevel = (level) => {
     setGameState(level);
-    setTimerKey(prev => prev + 1); // Reset timer for the new level
+    setTimerKey(prev => prev + 1);
   };
 
   const handleLevel1Complete = (score) => {
@@ -162,7 +151,7 @@ function App() {
       setGameState('intro3');
     } else {
       finalizeTestAndRecordUid(uid);
-      setGameState('lost'); // Direct to the new 'lost' screen
+      setGameState('lost');
     }
   };
 
@@ -206,7 +195,7 @@ function App() {
       case 'level3': return <Level3 onComplete={handleLevel3Complete} />;
       case 'introFinal': return <FullscreenVideo videoSrc="/lp.mp4" buttonText="See Final Score" onButtonClick={() => setGameState('thankyou')} />;
       case 'thankyou': return <Thankyou scores={scores} />;
-      case 'lost': return <LostGame scores={scores} />; // Render the new component
+      case 'lost': return <LostGame scores={scores} />;
       case 'terminated': return <Terminated reason={terminationReason} />;
       default: return <div>Loading...</div>;
     }
@@ -227,22 +216,9 @@ const LoginPage = ({ onLogin, error, isLoading }) => {
   const handleSubmit = (e) => { e.preventDefault(); onLogin(inputUid); };
 
   const customStyles = `
-    @keyframes gradient-move {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .animate-gradient {
-      background-size: 200% 200%;
-      animation: gradient-move 8s ease infinite;
-    }
-    @keyframes float {
-      0% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.2; }
-      25% { transform: translateY(-20px) translateX(15px) rotate(10deg); opacity: 0.5; }
-      50% { transform: translateY(10px) translateX(-15px) rotate(-15deg); opacity: 0.3; }
-      75% { transform: translateY(-15px) translateX(10px) rotate(5deg); opacity: 0.6; }
-      100% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.2; }
-    }
+    @keyframes gradient-move { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .animate-gradient { background-size: 200% 200%; animation: gradient-move 8s ease infinite; }
+    @keyframes float { 0% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.2; } 25% { transform: translateY(-20px) translateX(15px) rotate(10deg); opacity: 0.5; } 50% { transform: translateY(10px) translateX(-15px) rotate(-15deg); opacity: 0.3; } 75% { transform: translateY(-15px) translateX(10px) rotate(5deg); opacity: 0.6; } 100% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.2; } }
     .float-symbol { position: absolute; font-size: 1.5rem; }
     .animate-float1 { top: 10%; left: 5%; animation: float 10s ease-in-out infinite; }
     .animate-float2 { top: 70%; left: 85%; animation: float 12s ease-in-out infinite reverse; }
@@ -253,13 +229,7 @@ const LoginPage = ({ onLogin, error, isLoading }) => {
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden">
       <style>{customStyles}</style>
-      <video
-        autoPlay
-        loop
-        muted
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
-        src="/lp.mp4"
-      >
+      <video autoPlay loop muted className="absolute top-0 left-0 w-full h-full object-cover z-0" src="/lp.mp4">
         Your browser does not support the video tag.
       </video>
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-60 z-10"></div>
