@@ -1,6 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import ScoreBanner from './ScoreBanner';
 import ConfirmationModal from './ConfirmationModal';
+
+// Helper function to shuffle an array (Fisher-Yates algorithm)
+const shuffleArray = (array) => {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+};
 
 const MCQRound = ({ questions, onComplete, roundTitle }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -9,14 +19,34 @@ const MCQRound = ({ questions, onComplete, roundTitle }) => {
   const [finalScore, setFinalScore] = useState(0);
   const [isConfirming, setIsConfirming] = useState(false);
 
-  const currentQuestion = questions[currentQuestionIndex];
+  // --- Jumbled Options Logic ---
+  // useMemo ensures that the questions and options are shuffled only once
+  // when the component first receives the questions prop.
+  const processedQuestions = useMemo(() => {
+    return questions.map(q => {
+      // Get the original correct answer text before shuffling the options
+      const correctAnswerText = q.options[q.correctAnswerIndex];
+      // Create a new shuffled array of the options
+      const shuffledOptions = shuffleArray(q.options);
+      // Find the new index of the correct answer within the shuffled array
+      const newCorrectIndex = shuffledOptions.findIndex(opt => opt === correctAnswerText);
+      
+      // Return a new question object with the shuffled data
+      return {
+        ...q,
+        shuffledOptions: shuffledOptions,
+        newCorrectAnswerIndex: newCorrectIndex,
+      };
+    });
+  }, [questions]);
 
-  // --- RE-ARCHITECTED LOGIC ---
-  // Now uses the question's unique `id` to store the answer, which is more robust.
+  const currentQuestion = processedQuestions[currentQuestionIndex];
+
+  // --- Event Handlers ---
   const handleSelectOption = (optionIndex) => {
     setSelectedAnswers({
       ...selectedAnswers,
-      [currentQuestion.id]: optionIndex, // Using the stable question ID as the key
+      [currentQuestion.id]: optionIndex,
     });
   };
 
@@ -32,65 +62,50 @@ const MCQRound = ({ questions, onComplete, roundTitle }) => {
     }
   };
 
-  // --- DEFINITIVE SCORING LOGIC ---
-  // This function now reliably checks answers using the question's unique ID.
+  // --- Scoring Logic for Jumbled Options ---
   const handleConfirmSubmit = () => {
     let score = 0;
-    questions.forEach((question) => {
-      const userAnswer = selectedAnswers[question.id]; // Check answer by ID
-      const correctAnswer = question.correctAnswer;
-
-      if (userAnswer !== undefined) {
-        // eslint-disable-next-line eqeqeq
-        if (userAnswer == correctAnswer) {
-          score += 1;
-        }
+    processedQuestions.forEach(q => {
+      const userAnswerIndex = selectedAnswers[q.id];
+      // Check if the user's selected answer index matches the new correct index
+      if (userAnswerIndex !== undefined && userAnswerIndex === q.newCorrectAnswerIndex) {
+        score += 1;
       }
     });
-
     setFinalScore(score);
     setShowScore(true);
     setIsConfirming(false);
+    // Delay calling onComplete to allow the user to see their score
     setTimeout(() => {
       onComplete(score);
     }, 3000);
   };
 
   if (showScore) {
-    return (
-      <ScoreBanner
-        title="Round 1 Complete!"
-        score={finalScore}
-        totalMarks={questions.length}
-        message="Your results for the MCQ round are in. Preparing for the next challenge..."
-      />
-    );
+    return <ScoreBanner title="Round 1 Complete!" score={finalScore} totalMarks={questions.length} message="Preparing for the next challenge..." />;
   }
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-4 pt-24 flex flex-col items-center">
-      <ConfirmationModal
-        isOpen={isConfirming}
-        title="Submit Answers?"
-        message="Are you sure you want to submit your answers for this round? This action cannot be undone."
-        onConfirm={handleConfirmSubmit}
-        onCancel={() => setIsConfirming(false)}
+      <ConfirmationModal 
+        isOpen={isConfirming} 
+        title="Submit Answers?" 
+        message="Are you sure you want to submit your answers for this round? This action cannot be undone." 
+        onConfirm={handleConfirmSubmit} 
+        onCancel={() => setIsConfirming(false)} 
       />
       <div className="w-full max-w-4xl">
         <h1 className="text-3xl font-bold text-center mb-6 text-green-400">{roundTitle}</h1>
-        
         <div className="bg-gray-800 rounded-lg p-8 shadow-2xl border border-gray-700">
           <p className="text-gray-400 mb-2">Question {currentQuestionIndex + 1} of {questions.length}</p>
           <h2 className="text-2xl font-semibold mb-6">{currentQuestion.question}</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {currentQuestion.options.map((option, index) => (
+            {currentQuestion.shuffledOptions.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleSelectOption(index)}
                 className={`text-left p-4 rounded-lg transition duration-200 border-2 ${
-                  // --- MODIFIED LOGIC ---
-                  // Checks for the selected answer by the question's unique ID.
                   selectedAnswers[currentQuestion.id] === index
                     ? 'bg-green-600 border-green-400 shadow-lg'
                     : 'bg-gray-700 border-gray-600 hover:bg-gray-600'
@@ -104,26 +119,16 @@ const MCQRound = ({ questions, onComplete, roundTitle }) => {
         </div>
 
         <div className="flex justify-between items-center mt-8 p-4 bg-gray-800 rounded-lg shadow-lg">
-          <button
-            onClick={goToPreviousQuestion}
-            disabled={currentQuestionIndex === 0}
-            className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
-          >
+          <button onClick={goToPreviousQuestion} disabled={currentQuestionIndex === 0} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg transition disabled:opacity-50">
             Previous
           </button>
           <span className="font-semibold">{currentQuestionIndex + 1} of {questions.length}</span>
           {currentQuestionIndex < questions.length - 1 ? (
-            <button
-              onClick={goToNextQuestion}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition"
-            >
+            <button onClick={goToNextQuestion} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition">
               Next
             </button>
           ) : (
-            <button
-              onClick={() => setIsConfirming(true)}
-              className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg transition animate-pulse"
-            >
+            <button onClick={() => setIsConfirming(true)} className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg transition animate-pulse">
               Submit Round 1
             </button>
           )}

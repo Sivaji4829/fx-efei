@@ -1,18 +1,18 @@
 [
   {
-    "id": 1,
+    "id": "mcq_1",
     "question": "What is the time complexity of searching in a balanced Binary Search Tree?",
     "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 2,
-    "question": "Java snippet output: int x=5; System.out.println(x+++++x);",
+    "id": "mcq_2",
+    "question": "Java snippet output: int x = 5; System.out.println(x++ + ++x);",
     "options": ["10", "11", "12", "13"],
-    "correctAnswer": 3
+    "correctAnswerIndex": 3
   },
   {
-    "id": 3,
+    "id": "mcq_3",
     "question": "Which of these best describes polymorphism in OOP?",
     "options": [
       "Wrapping data and methods into one unit",
@@ -20,10 +20,10 @@
       "Same method behaving differently based on object",
       "Reusing code in multiple classes"
     ],
-    "correctAnswer": 2
+    "correctAnswerIndex": 2
   },
   {
-    "id": 4,
+    "id": "mcq_4",
     "question": "Which SQL query returns the second highest salary?",
     "options": [
       "SELECT MAX(salary) FROM Employee;",
@@ -31,106 +31,106 @@
       "SELECT MAX(salary) FROM Employee WHERE salary < (SELECT MAX(salary) FROM Employee);",
       "SELECT salary FROM Employee WHERE ROWNUM=2;"
     ],
-    "correctAnswer": 2
+    "correctAnswerIndex": 2
   },
   {
-    "id": 5,
-    "question": "C code snippet: int x=10; printf(\"%d\", x+++++x);",
+    "id": "mcq_5",
+    "question": "C code snippet: int x = 10; printf(\"%d\", x++ + ++x);",
     "options": ["20", "21", "Undefined behavior", "22"],
-    "correctAnswer": 2
+    "correctAnswerIndex": 2
   },
   {
-    "id": 6,
+    "id": "mcq_6",
     "question": "Which of the following is most memory-efficient to store boolean values in large quantities?",
     "options": ["int", "char", "boolean/bitset", "float"],
-    "correctAnswer": 2
+    "correctAnswerIndex": 2
   },
   {
-    "id": 7,
+    "id": "mcq_7",
     "question": "Java snippet: String s1 = \"hello\"; String s2 = new String(\"hello\"); System.out.println(s1 == s2);",
     "options": ["true", "false", "depends on JVM", "compile error"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 8,
+    "id": "mcq_8",
     "question": "Which data structure is best for implementing undo/redo operations?",
     "options": ["Queue", "Stack", "HashMap", "Linked List"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 9,
+    "id": "mcq_9",
     "question": "Python snippet: x = [1, 2, 3]; y = x; y.append(4); print(x)",
     "options": ["[1, 2, 3]", "[1, 2, 3, 4]", "Error", "None"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 10,
+    "id": "mcq_10",
     "question": "In Java, which exception is thrown when dividing by zero?",
     "options": ["NullPointerException", "ArithmeticException", "NumberFormatException", "IllegalArgumentException"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 11,
+    "id": "mcq_11",
     "question": "What is the time complexity of Merge Sort?",
     "options": ["O(n)", "O(n log n)", "O(log n)", "O(n^2)"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 12,
+    "id": "mcq_12",
     "question": "Which keyword in Java is used for method overriding prevention?",
     "options": ["static", "final", "abstract", "const"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 13,
+    "id": "mcq_13",
     "question": "JavaScript snippet: console.log(\"5\" + 2); console.log(\"5\" - 2);",
     "options": ["7, 3", "\"52\", \"3\"", "\"52\", 3", "Error"],
-    "correctAnswer": 2
+    "correctAnswerIndex": 2
   },
   {
-    "id": 14,
+    "id": "mcq_14",
     "question": "Accessing an array element by index takes:",
     "options": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
-    "correctAnswer": 0
+    "correctAnswerIndex": 0
   },
   {
-    "id": 15,
+    "id": "mcq_15",
     "question": "Which OOP principle is being applied when parent class reference points to child class object?",
     "options": ["Encapsulation", "Polymorphism", "Inheritance", "Abstraction"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 16,
+    "id": "mcq_16",
     "question": "Which sorting algorithm is best for nearly sorted data?",
     "options": ["Bubble Sort", "Quick Sort", "Merge Sort", "Insertion Sort"],
-    "correctAnswer": 3
+    "correctAnswerIndex": 3
   },
   {
-    "id": 17,
+    "id": "mcq_17",
     "question": "Python snippet output: def fun(x=[]): x.append(1); return x; print(fun()); print(fun())",
     "options": ["[1], [1]", "[1], [1,1]", "Error", "None"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 18,
+    "id": "mcq_18",
     "question": "In Java, if finally block has a return statement, it will:",
     "options": ["Override try/catch return", "Execute but ignore return", "Not execute", "Cause error"],
-    "correctAnswer": 0
+    "correctAnswerIndex": 0
   },
   {
-    "id": 19,
+    "id": "mcq_19",
     "question": "Which data structure is best suited for implementing a task scheduler?",
     "options": ["Stack", "Queue", "HashMap", "Tree"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 20,
+    "id": "mcq_20",
     "question": "C code after freeing a pointer and reusing it refers to:",
     "options": ["Stack corruption", "Dangling pointer", "Memory leak", "Segmentation tree"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 21,
+    "id": "mcq_21",
     "question": "Which SQL statement will return all employees with salary greater than average salary?",
     "options": [
       "SELECT * FROM Employee WHERE salary > AVG(salary);",
@@ -138,60 +138,180 @@
       "SELECT * FROM Employee HAVING salary > AVG(salary);",
       "None"
     ],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 22,
+    "id": "mcq_22",
     "question": "Which keyword in Java is used for runtime polymorphism?",
     "options": ["static", "final", "virtual", "dynamic dispatch (via overriding)"],
-    "correctAnswer": 3
+    "correctAnswerIndex": 3
   },
   {
-    "id": 23,
+    "id": "mcq_23",
     "question": "Which data structure provides O(1) average time for insertion, deletion, and search?",
     "options": ["HashMap", "ArrayList", "Stack", "Queue"],
-    "correctAnswer": 0
+    "correctAnswerIndex": 0
   },
   {
-    "id": 24,
+    "id": "mcq_24",
     "question": "Which exception occurs if a thread sleeps with negative time?",
     "options": ["InterruptedException", "IllegalArgumentException", "ArithmeticException", "NullPointerException"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 25,
-    "question": "Java snippet output: System.out.println(10+20+\"Hello\"+30+40);",
+    "id": "mcq_25",
+    "question": "Java snippet output: System.out.println(10 + 20 + \"Hello\" + 30 + 40);",
     "options": ["Hello3040", "30Hello3040", "10Hello20", "Hello70"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 26,
+    "id": "mcq_26",
     "question": "BFS traversal of a graph with V vertices and E edges takes:",
     "options": ["O(V)", "O(E)", "O(V+E)", "O(V*E)"],
-    "correctAnswer": 2
+    "correctAnswerIndex": 2
   },
   {
-    "id": 27,
+    "id": "mcq_27",
     "question": "In recursion, what happens if the base case is missing?",
     "options": ["Infinite loop", "Compile error", "Stack overflow error", "Logic correction"],
-    "correctAnswer": 2
+    "correctAnswerIndex": 2
   },
   {
-    "id": 28,
+    "id": "mcq_28",
     "question": "Which operator checks object equality in Java?",
     "options": ["==", ".equals()", "=", "compareTo()"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 29,
+    "id": "mcq_29",
     "question": "JavaScript snippet: console.log(0 == false); console.log(0 === false);",
     "options": ["true, true", "true, false", "false, true", "false, false"],
-    "correctAnswer": 1
+    "correctAnswerIndex": 1
   },
   {
-    "id": 30,
+    "id": "mcq_30",
     "question": "Which is NOT an OOP principle?",
     "options": ["Inheritance", "Polymorphism", "Encapsulation", "Enumeration"],
-    "correctAnswer": 3
+    "correctAnswerIndex": 3
+  },
+  {
+    "id": "mcq_31",
+    "question": "Time complexity of linear search in an unsorted array of n elements?",
+    "options": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+    "correctAnswerIndex": 1
+  },
+  {
+    "id": "mcq_32",
+    "question": "What is stored in Java stack memory?",
+    "options": ["Objects", "Instance variables", "Primitive variables & method calls", "Static variables"],
+    "correctAnswerIndex": 2
+  },
+  {
+    "id": "mcq_33",
+    "question": "Which exception handling block must always execute?",
+    "options": ["try", "catch", "finally", "throw"],
+    "correctAnswerIndex": 2
+  },
+  {
+    "id": "mcq_34",
+    "question": "Java snippet: public class Test { public static void main(String[] args) { System.out.println(\"A\" + 10 + 20); System.out.println(10 + 20 + \"A\"); } }",
+    "options": ["A30, 30A", "A1020, 30A", "Error", "A30, A30"],
+    "correctAnswerIndex": 1
+  },
+  {
+    "id": "mcq_35",
+    "question": "Which data type consumes the least memory in Java?",
+    "options": ["int", "short", "byte", "long"],
+    "correctAnswerIndex": 2
+  },
+  {
+    "id": "mcq_36",
+    "question": "Which OOP concept hides implementation details and exposes functionality?",
+    "options": ["Inheritance", "Encapsulation", "Abstraction", "Polymorphism"],
+    "correctAnswerIndex": 2
+  },
+  {
+    "id": "mcq_37",
+    "question": "What is the time complexity of inserting an element into a heap?",
+    "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+    "correctAnswerIndex": 1
+  },
+  {
+    "id": "mcq_38",
+    "question": "Python snippet output: for i in range(3): for j in range(2): print(i, j)",
+    "options": ["3 lines", "5 lines", "6 lines", "Error"],
+    "correctAnswerIndex": 2
+  },
+  {
+    "id": "mcq_39",
+    "question": "Which sorting algorithm is stable and runs in O(n log n) worst case?",
+    "options": ["Quick Sort", "Heap Sort", "Merge Sort", "Selection Sort"],
+    "correctAnswerIndex": 2
+  },
+  {
+    "id": "mcq_40",
+    "question": "Java snippet: System.out.println(\"Hello\".substring(1, 4));",
+    "options": ["Hel", "ell", "llo", "ello"],
+    "correctAnswerIndex": 1
+  },
+  {
+    "id": "mcq_41",
+    "question": "Which of these is true about recursion?",
+    "options": ["Always faster", "Always memory efficient", "Every recursion must have base case", "Cannot replace iteration"],
+    "correctAnswerIndex": 2
+  },
+  {
+    "id": "mcq_42",
+    "question": "Which DS is best to find the shortest path in an unweighted graph?",
+    "options": ["DFS", "BFS", "Stack", "Heap"],
+    "correctAnswerIndex": 1
+  },
+  {
+    "id": "mcq_43",
+    "question": "Java code output: int a = 1; while(a < 3) { System.out.print(a); }",
+    "options": ["12", "Infinite loop printing 1", "123", "Nothing"],
+    "correctAnswerIndex": 1
+  },
+  {
+    "id": "mcq_44",
+    "question": "Which of these operations in HashMap is O(1) on average?",
+    "options": ["get()", "put()", "remove()", "All of the above"],
+    "correctAnswerIndex": 3
+  },
+  {
+    "id": "mcq_45",
+    "question": "What is the default value of a boolean in Java?",
+    "options": ["0", "true", "false", "null"],
+    "correctAnswerIndex": 2
+  },
+  {
+    "id": "mcq_46",
+    "question": "Which sorting algorithm has best case O(n) when array is already sorted?",
+    "options": ["Merge Sort", "Quick Sort", "Insertion Sort", "Selection Sort"],
+    "correctAnswerIndex": 2
+  },
+  {
+    "id": "mcq_47",
+    "question": "Which exception occurs when array index is out of bounds in Java?",
+    "options": ["IndexException", "ArrayOutOfBoundError", "ArrayIndexOutOfBoundsException", "NullPointerException"],
+    "correctAnswerIndex": 2
+  },
+  {
+    "id": "mcq_48",
+    "question": "In C, accessing a freed memory location is an example of:",
+    "options": ["Buffer overflow", "Dangling pointer", "Null pointer", "Stack underflow"],
+    "correctAnswerIndex": 1
+  },
+  {
+    "id": "mcq_49",
+    "question": "Which operator is used for value equality comparison in JavaScript?",
+    "options": ["==", "===", "=", "equals()"],
+    "correctAnswerIndex": 0
+  },
+  {
+    "id": "mcq_50",
+    "question": "Java snippet: class Parent { void show() { System.out.println(\"Parent\"); } } class Child extends Parent { void show() { System.out.println(\"Child\"); } } public class Test { public static void main(String[] args) { Parent p = new Child(); p.show(); } }",
+    "options": ["Parent", "Child", "Error", "Depends on JVM"],
+    "correctAnswerIndex": 1
   }
 ]
