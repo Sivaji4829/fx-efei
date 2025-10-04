@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import ScoreBanner from './ScoreBanner';
 import ConfirmationModal from './ConfirmationModal';
 
@@ -20,23 +20,12 @@ const MCQRound = ({ questions, onComplete, roundTitle }) => {
   const [isConfirming, setIsConfirming] = useState(false);
 
   // --- Jumbled Options Logic ---
-  // useMemo ensures that the questions and options are shuffled only once
-  // when the component first receives the questions prop.
   const processedQuestions = useMemo(() => {
     return questions.map(q => {
-      // Get the original correct answer text before shuffling the options
       const correctAnswerText = q.options[q.correctAnswerIndex];
-      // Create a new shuffled array of the options
       const shuffledOptions = shuffleArray(q.options);
-      // Find the new index of the correct answer within the shuffled array
       const newCorrectIndex = shuffledOptions.findIndex(opt => opt === correctAnswerText);
-      
-      // Return a new question object with the shuffled data
-      return {
-        ...q,
-        shuffledOptions: shuffledOptions,
-        newCorrectAnswerIndex: newCorrectIndex,
-      };
+      return { ...q, shuffledOptions, newCorrectAnswerIndex: newCorrectIndex };
     });
   }, [questions]);
 
@@ -44,99 +33,133 @@ const MCQRound = ({ questions, onComplete, roundTitle }) => {
 
   // --- Event Handlers ---
   const handleSelectOption = (optionIndex) => {
-    setSelectedAnswers({
-      ...selectedAnswers,
-      [currentQuestion.id]: optionIndex,
-    });
+    setSelectedAnswers({ ...selectedAnswers, [currentQuestion.id]: optionIndex });
   };
-
   const goToNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    }
+    if (currentQuestionIndex < questions.length - 1) setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
-
   const goToPreviousQuestion = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-    }
+    if (currentQuestionIndex > 0) setCurrentQuestionIndex(currentQuestionIndex - 1);
   };
 
-  // --- Scoring Logic for Jumbled Options ---
+  // --- Scoring Logic ---
   const handleConfirmSubmit = () => {
     let score = 0;
     processedQuestions.forEach(q => {
-      const userAnswerIndex = selectedAnswers[q.id];
-      // Check if the user's selected answer index matches the new correct index
-      if (userAnswerIndex !== undefined && userAnswerIndex === q.newCorrectAnswerIndex) {
-        score += 1;
-      }
+      if (selectedAnswers[q.id] === q.newCorrectAnswerIndex) score += 1;
     });
     setFinalScore(score);
     setShowScore(true);
     setIsConfirming(false);
-    // Delay calling onComplete to allow the user to see their score
-    setTimeout(() => {
-      onComplete(score);
-    }, 3000);
+    setTimeout(() => onComplete(score), 3000);
   };
+
+  // --- Custom Styles for Gamification ---
+  const gamifiedStyles = `
+    /* Disable scroll completely */
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .gamified-cursor {
+      /* New "3D" Animated Cursor */
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><g transform="translate(16,16)"><circle r="14" fill="none" stroke="rgba(0,255,135,0.5)" stroke-width="1.5"><animate attributeName="stroke-dasharray" values="0 88; 88 0; 0 88" dur="2s" repeatCount="indefinite" /></circle><circle r="10" fill="none" stroke="rgba(0,255,135,0.7)" stroke-width="1.5"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="2.5s" repeatCount="indefinite" /></circle><circle r="2" fill="rgba(0,255,135,1)"><animate attributeName="r" from="2" to="4" to="2" dur="1s" repeatCount="indefinite" /></circle></g></svg>') 16 16, auto;
+    }
+    @keyframes card-fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-card-fade-in {
+      animation: card-fade-in 0.5s ease-out forwards;
+    }
+    @keyframes option-pop-in {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .animate-option-pop-in {
+      animation: option-pop-in 0.4s ease-out forwards;
+    }
+  `;
 
   if (showScore) {
     return <ScoreBanner title="Round 1 Complete!" score={finalScore} totalMarks={questions.length} message="Preparing for the next challenge..." />;
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-4 pt-24 flex flex-col items-center">
-      <ConfirmationModal 
-        isOpen={isConfirming} 
-        title="Submit Answers?" 
-        message="Are you sure you want to submit your answers for this round? This action cannot be undone." 
-        onConfirm={handleConfirmSubmit} 
-        onCancel={() => setIsConfirming(false)} 
-      />
-      <div className="w-full max-w-4xl">
-        <h1 className="text-3xl font-bold text-center mb-6 text-green-400">{roundTitle}</h1>
-        <div className="bg-gray-800 rounded-lg p-8 shadow-2xl border border-gray-700">
-          <p className="text-gray-400 mb-2">Question {currentQuestionIndex + 1} of {questions.length}</p>
-          <h2 className="text-2xl font-semibold mb-6">{currentQuestion.question}</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {currentQuestion.shuffledOptions.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => handleSelectOption(index)}
-                className={`text-left p-4 rounded-lg transition duration-200 border-2 ${
-                  selectedAnswers[currentQuestion.id] === index
-                    ? 'bg-green-600 border-green-400 shadow-lg'
-                    : 'bg-gray-700 border-gray-600 hover:bg-gray-600'
-                }`}
-              >
-                <span className="font-mono mr-3 text-green-400">{String.fromCharCode(65 + index)}.</span>
-                <span>{option}</span>
-              </button>
-            ))}
-          </div>
-        </div>
+    <>
+      <style>{gamifiedStyles}</style>
+      {/* Background Layer */}
+      <div className="fixed top-0 left-0 w-full h-screen z-0">
+  <video
+    autoPlay
+    loop
+    muted
+    playsInline
+    className="absolute top-0 left-0 w-full h-full object-cover"
+    src="/l1bg.mp4"
+  />
+  <div className="absolute top-0 left-0 w-full h-full bg-black opacity-10"></div>
+</div>
 
-        <div className="flex justify-between items-center mt-8 p-4 bg-gray-800 rounded-lg shadow-lg">
-          <button onClick={goToPreviousQuestion} disabled={currentQuestionIndex === 0} className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg transition disabled:opacity-50">
-            Previous
-          </button>
-          <span className="font-semibold">{currentQuestionIndex + 1} of {questions.length}</span>
-          {currentQuestionIndex < questions.length - 1 ? (
-            <button onClick={goToNextQuestion} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition">
-              Next
-            </button>
-          ) : (
-            <button onClick={() => setIsConfirming(true)} className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg transition animate-pulse">
-              Submit Round 1
-            </button>
-          )}
+
+      {/* Content Layer with Custom Cursor */}
+      <div className="relative z-10 w-full h-screen flex flex-col items-center justify-center p-4 gamified-cursor">
+        <ConfirmationModal 
+            isOpen={isConfirming} 
+            title="Submit Answers?" 
+            message="This action is final and cannot be undone." 
+            onConfirm={handleConfirmSubmit} 
+            onCancel={() => setIsConfirming(false)} 
+        />
+        {/* Main Content Wrapper */}
+        <div className="w-full max-w-4xl flex flex-col">
+            <h1 className="text-3xl font-bold text-center mb-6 text-green-400 animate-card-fade-in">{roundTitle}</h1>
+            
+            <div key={currentQuestionIndex} className="bg-black bg-opacity-40 backdrop-blur-md rounded-lg p-8 shadow-2xl border border-gray-700 flex flex-col animate-card-fade-in">
+              <p className="text-gray-400 mb-2">Question {currentQuestionIndex + 1} of {questions.length}</p>
+              <h2 className="text-2xl font-semibold mb-6 min-h-[6rem]">{currentQuestion.question}</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {currentQuestion.shuffledOptions.map((option, index) => (
+                  <button
+                      key={index}
+                      onClick={() => handleSelectOption(index)}
+                      className={`text-left p-4 rounded-lg transition duration-200 border-2 animate-option-pop-in transform hover:scale-105 hover:border-green-400 hover:shadow-lg hover:bg-green-900/50 ${
+                        selectedAnswers[currentQuestion.id] === index
+                          ? 'bg-green-600 border-green-400 shadow-lg'
+                          : 'bg-gray-700 border-gray-600 hover:bg-gray-600'
+                      }`}
+                      style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                      <span className="font-mono mr-3 text-green-400">{String.fromCharCode(65 + index)}.</span>
+                      <span>{option}</span>
+                  </button>
+                  ))}
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center mt-4 p-4 bg-black bg-opacity-40 backdrop-blur-md rounded-lg shadow-lg border border-gray-700 animate-card-fade-in">
+              <button onClick={goToPreviousQuestion} disabled={currentQuestionIndex === 0} className="bg-gray-600 hover:bg-gray-700 font-bold py-2 px-6 rounded-lg transition disabled:opacity-50">
+                  Previous
+              </button>
+              <span className="font-semibold">{currentQuestionIndex + 1} of {questions.length}</span>
+              {currentQuestionIndex < questions.length - 1 ? (
+                  <button onClick={goToNextQuestion} className="bg-blue-600 hover:bg-blue-700 font-bold py-2 px-6 rounded-lg transition">
+                  Next
+                  </button>
+              ) : (
+                  <button onClick={() => setIsConfirming(true)} className="bg-red-600 hover:bg-red-700 font-bold py-2 px-6 rounded-lg transition animate-pulse">
+                  Submit Round 1
+                  </button>
+              )}
+            </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
 export default MCQRound;
-

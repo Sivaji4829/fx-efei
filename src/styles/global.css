@@ -4,6 +4,13 @@
 
 body {
   font-family: 'Inter', sans-serif;
+  cursor: url("/cursor.png") 16 16, auto; /* 👈 Add your PNG cursor here */
+}
+
+header {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(8px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 /* Custom animation for fade-in effects */

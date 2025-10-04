@@ -165,7 +165,7 @@ function App() {
     const config = {
       level1: { duration: 20 * 60, title: 'Round 1: Multiple Choice' },
       level2: { duration: 20 * 60, title: 'Round 2: Debugging' },
-      level3: { duration: 30 * 60, title: 'Round 3: Final Challenge' },
+      level3: { duration: 35 * 60, title: 'Round 3: Final Challenge' },
     }[gameState];
     if (!config) return null;
     return (
@@ -188,7 +188,7 @@ function App() {
       case 'level2': return <Level2 onComplete={handleLevel2Complete} />;
       case 'intro3': return <FullscreenVideo videoSrc="/03.mp4" buttonText="Start Final Round" onButtonClick={() => startLevel('level3')} />;
       case 'level3': return <Level3 onComplete={handleLevel3Complete} />;
-      case 'introFinal': return <FullscreenVideo videoSrc="/lp.mp4" buttonText="See Final Score" onButtonClick={() => setGameState('thankyou')} />;
+      case 'introFinal': return <FullscreenVideo videoSrc="/tq.mp4" buttonText="See Final Score" onButtonClick={() => setGameState('thankyou')} />;
       case 'thankyou': return <Thankyou scores={scores} />;
       case 'lost': return <LostGame scores={scores} />;
       case 'terminated': return <Terminated reason={terminationReason} />;

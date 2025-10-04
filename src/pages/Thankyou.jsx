@@ -2,7 +2,7 @@ import React from 'react';
 
 const Thankyou = ({ scores }) => {
   const totalScore = scores.level1 + scores.level2 + scores.level3;
-  const totalPossible = 30 + 20 + 30; // Assuming L3 has 3 questions worth 10 each
+  const totalPossible = 30 + 20 + 30;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center p-4 bg-gradient-to-b from-gray-900 to-green-900">

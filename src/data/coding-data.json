@@ -626,7 +626,7 @@
     "language": "python",
     "description": "Attempting to divide by zero will raise a ZeroDivisionError.",
     "startingCode": "x = 5 / 0",
-    "correctedCode": "try:\n    x = 5 / 0\nexcept ZeroDivisionError:\n    print(\"Cannot divide by zero\")",
+    "correctedCode": "try:\n    x = 5 / 1\nexcept ZeroDivisionError:\n    print(\"Cannot divide by zero\")",
     "testCases": [{ "input": "", "output": "Cannot divide by zero" }]
   },
   {
@@ -700,3 +700,4 @@
     "testCases": [{ "input": "", "output": "hi" }]
   }
 ]
+

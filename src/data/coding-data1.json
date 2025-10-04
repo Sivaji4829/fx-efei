@@ -1,0 +1,777 @@
+[
+  {
+    "id": "r3_q1",
+    "round": 3,
+    "title": "Sum of List Elements",
+    "language": "Python",
+    "description": "Write a function that takes a list of numbers and returns their sum.",
+    "startingCode": "def sum_list(numbers):\n    # Write your code here\n    pass",
+    "correctedCode": "def sum_list(numbers):\n    return sum(numbers)",
+    "testCases": [
+      {"input": "sum_list([1, 2, 3, 4, 5])", "output": "15"},
+      {"input": "sum_list([10, -2, 5])", "output": "13"}
+    ],
+    "hints": ["Use Python's built-in `sum()` function for a concise and efficient solution."]
+  },
+  {
+    "id": "r3_q2",
+    "round": 3,
+    "title": "Factorial of a Number",
+    "language": "Python",
+    "description": "Write a function to calculate the factorial of a non-negative integer.",
+    "startingCode": "def factorial(n):\n    # Write your code here\n    pass",
+    "correctedCode": "def factorial(n):\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n - 1)",
+    "testCases": [
+      {"input": "factorial(5)", "output": "120"},
+      {"input": "factorial(0)", "output": "1"}
+    ],
+    "hints": ["Remember the base case for the recursion: factorial of 0 is 1."]
+  },
+  {
+    "id": "r3_q3",
+    "round": 3,
+    "title": "Palindrome Check",
+    "language": "Python",
+    "description": "Write a function that checks if a given string is a palindrome (reads the same forwards and backwards).",
+    "startingCode": "def is_palindrome(s):\n    # Write your code here\n    pass",
+    "correctedCode": "def is_palindrome(s):\n    return s == s[::-1]",
+    "testCases": [
+      {"input": "is_palindrome(\"radar\")", "output": "True"},
+      {"input": "is_palindrome(\"hello\")", "output": "False"}
+    ],
+    "hints": ["You can reverse a string in Python using slicing `[::-1]`."]
+  },
+  {
+    "id": "r3_q4",
+    "round": 3,
+    "title": "Find Maximum in List",
+    "language": "Python",
+    "description": "Write a function to find the largest number in a list.",
+    "startingCode": "def find_max(numbers):\n    # Write your code here\n    pass",
+    "correctedCode": "def find_max(numbers):\n    return max(numbers)",
+    "testCases": [
+      {"input": "find_max([1, 9, 3, 7])", "output": "9"},
+      {"input": "find_max([-1, -5, -2])", "output": "-1"}
+    ],
+    "hints": ["Look for a built-in Python function that finds the maximum value in a list."]
+  },
+  {
+    "id": "r3_q5",
+    "round": 3,
+    "title": "Fibonacci Sequence",
+    "language": "Python",
+    "description": "Write a function to generate the first n numbers of the Fibonacci sequence.",
+    "startingCode": "def fibonacci(n):\n    # Write your code here\n    pass",
+    "correctedCode": "def fibonacci(n):\n    a, b = 0, 1\n    result = []\n    for _ in range(n):\n        result.append(a)\n        a, b = b, a + b\n    return result",
+    "testCases": [
+      {"input": "fibonacci(5)", "output": "[0, 1, 1, 2, 3]"},
+      {"input": "fibonacci(8)", "output": "[0, 1, 1, 2, 3, 5, 8, 13]"}
+    ],
+    "hints": ["You need two variables to keep track of the last two numbers in the sequence to calculate the next one."]
+  },
+  {
+    "id": "r3_q6",
+    "round": 3,
+    "title": "Count Vowels in a String",
+    "language": "Python",
+    "description": "Write a function that counts the number of vowels (a, e, i, o, u) in a given string.",
+    "startingCode": "def count_vowels(s):\n    # Write your code here\n    pass",
+    "correctedCode": "def count_vowels(s):\n    vowels = \"aeiouAEIOU\"\n    count = 0\n    for char in s:\n        if char in vowels:\n            count += 1\n    return count",
+    "testCases": [
+      {"input": "count_vowels(\"hello world\")", "output": "3"},
+      {"input": "count_vowels(\"Python Programming\")", "output": "5"}
+    ],
+    "hints": ["Make sure to handle both lowercase and uppercase vowels."]
+  },
+  {
+    "id": "r3_q7",
+    "round": 3,
+    "title": "Remove Duplicates from List",
+    "language": "Python",
+    "description": "Write a function that takes a list and returns a new list with duplicates removed.",
+    "startingCode": "def remove_duplicates(items):\n    # Write your code here\n    pass",
+    "correctedCode": "def remove_duplicates(items):\n    return list(set(items))",
+    "testCases": [
+      {"input": "remove_duplicates([1, 2, 2, 3, 4, 4, 5])", "output": "[1, 2, 3, 4, 5]"},
+      {"input": "remove_duplicates(['a', 'b', 'a', 'c'])", "output": "['a', 'b', 'c']"}
+    ],
+    "hints": ["Consider using a data structure that only stores unique elements."]
+  },
+  {
+    "id": "r3_q8",
+    "round": 3,
+    "title": "Simple Calculator Class",
+    "language": "Python",
+    "description": "Implement a Calculator class with methods for addition, subtraction, multiplication, and division.",
+    "startingCode": "class Calculator:\n    def add(self, a, b):\n        pass\n    def subtract(self, a, b):\n        pass\n    def multiply(self, a, b):\n        pass\n    def divide(self, a, b):\n        pass",
+    "correctedCode": "class Calculator:\n    def add(self, a, b):\n        return a + b\n    def subtract(self, a, b):\n        return a - b\n    def multiply(self, a, b):\n        return a * b\n    def divide(self, a, b):\n        if b == 0:\n            return 'Error: Cannot divide by zero'\n        return a / b",
+    "testCases": [
+      {"input": "c = Calculator(); c.add(10, 5)", "output": "15"},
+      {"input": "c = Calculator(); c.divide(10, 0)", "output": "'Error: Cannot divide by zero'"}
+    ],
+    "hints": ["Remember to handle the edge case of division by zero in the divide method."]
+  },
+  {
+    "id": "r3_q9",
+    "round": 3,
+    "title": "Check if a Number is Even or Odd",
+    "language": "Python",
+    "description": "Write a function that takes an integer and returns 'Even' if the number is even, and 'Odd' if it is odd.",
+    "startingCode": "def even_or_odd(n):\n    # Write your code here\n    pass",
+    "correctedCode": "def even_or_odd(n):\n    if n % 2 == 0:\n        return 'Even'\n    else:\n        return 'Odd'",
+    "testCases": [
+      {"input": "even_or_odd(4)", "output": "'Even'"},
+      {"input": "even_or_odd(7)", "output": "'Odd'"}
+    ],
+    "hints": ["The modulo operator (%) is perfect for checking divisibility."]
+  },
+  {
+    "id": "r3_q10",
+    "round": 3,
+    "title": "Merge and Sort Two Lists",
+    "language": "Python",
+    "description": "Write a function that merges two lists and sorts the result.",
+    "startingCode": "def merge_and_sort(list1, list2):\n    # Write your code here\n    pass",
+    "correctedCode": "def merge_and_sort(list1, list2):\n    merged_list = list1 + list2\n    merged_list.sort()\n    return merged_list",
+    "testCases": [
+      {"input": "merge_and_sort([1, 3, 5], [2, 4, 6])", "output": "[1, 2, 3, 4, 5, 6]"},
+      {"input": "merge_and_sort([9, 1, 5], [3, 7])", "output": "[1, 3, 5, 7, 9]"}
+    ],
+    "hints": ["You can concatenate two lists in Python using the '+' operator."]
+  },
+  {
+    "id": "r3_q11",
+    "round": 3,
+    "title": "Find the Longest Word",
+    "language": "Python",
+    "description": "Write a function that takes a sentence and returns the longest word in it.",
+    "startingCode": "def longest_word(sentence):\n    # Write your code here\n    pass",
+    "correctedCode": "def longest_word(sentence):\n    words = sentence.split()\n    return max(words, key=len)",
+    "testCases": [
+      {"input": "longest_word(\"The quick brown fox jumps over the lazy dog\")", "output": "\"quick\""},
+      {"input": "longest_word(\"Python is an amazing language\")", "output": "\"amazing\""}
+    ],
+    "hints": ["The `max()` function has an optional `key` argument that you can use to specify a custom sorting criterion."]
+  },
+  {
+    "id": "r3_q12",
+    "round": 3,
+    "title": "Armstrong Number Check",
+    "language": "Python",
+    "description": "Write a function to check if a number is an Armstrong number (a number that is equal to the sum of its own digits each raised to the power of the number of digits).",
+    "startingCode": "def is_armstrong(n):\n    # Write your code here\n    pass",
+    "correctedCode": "def is_armstrong(n):\n    s = str(n)\n    power = len(s)\n    return n == sum(int(digit)**power for digit in s)",
+    "testCases": [
+      {"input": "is_armstrong(153)", "output": "True"},
+      {"input": "is_armstrong(123)", "output": "False"}
+    ],
+    "hints": ["Convert the number to a string to easily access each digit and find the total number of digits."]
+  },
+  {
+    "id": "r3_q13",
+    "round": 3,
+    "title": "Simple Interest Calculator",
+    "language": "Python",
+    "description": "Write a function to calculate simple interest given principal, rate, and time.",
+    "startingCode": "def simple_interest(p, r, t):\n    # Write your code here\n    pass",
+    "correctedCode": "def simple_interest(p, r, t):\n    return (p * r * t) / 100",
+    "testCases": [
+      {"input": "simple_interest(1000, 5, 2)", "output": "100.0"},
+      {"input": "simple_interest(500, 10, 3)", "output": "150.0"}
+    ],
+    "hints": ["The formula for simple interest is I = PRT/100."]
+  },
+  {
+    "id": "r3_q14",
+    "round": 3,
+    "title": "Dog Class",
+    "language": "Python",
+    "description": "Create a `Dog` class with `name` and `age` attributes, and a method `bark` that prints 'Woof!'.",
+    "startingCode": "class Dog:\n    def __init__(self, name, age):\n        # your code here\n        pass\n\n    def bark(self):\n        # your code here\n        pass",
+    "correctedCode": "class Dog:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\n    def bark(self):\n        print('Woof!')",
+    "testCases": [
+      {"input": "d = Dog('Buddy', 5); d.name", "output": "'Buddy'"},
+      {"input": "d = Dog('Lucy', 3); d.bark()", "output": "Woof!"}
+    ],
+    "hints": ["The `__init__` method is the constructor for a class in Python."]
+  },
+  {
+    "id": "r3_q15",
+    "round": 3,
+    "title": "Count Words in a String",
+    "language": "Python",
+    "description": "Write a function that takes a sentence and returns the number of words in it.",
+    "startingCode": "def count_words(sentence):\n    # Write your code here\n    pass",
+    "correctedCode": "def count_words(sentence):\n    return len(sentence.split())",
+    "testCases": [
+      {"input": "count_words(\"Hello world\")", "output": "2"},
+      {"input": "count_words(\"This is a test sentence\")", "output": "5"}
+    ],
+    "hints": ["The `split()` method can break a string into a list of substrings."]
+  },
+  {
+    "id": "r3_q16",
+    "round": 3,
+    "title": "Check for Anagrams",
+    "language": "Python",
+    "description": "Write a function to check if two strings are anagrams of each other (contain the same characters with the same frequency).",
+    "startingCode": "def are_anagrams(s1, s2):\n    # Write your code here\n    pass",
+    "correctedCode": "def are_anagrams(s1, s2):\n    return sorted(s1) == sorted(s2)",
+    "testCases": [
+      {"input": "\"listen\", \"silent\"", "output": "True"},
+      {"input": "\"hello\", \"world\"", "output": "False"}
+    ],
+    "approach": "Two strings are anagrams if their sorted versions are identical. Use the `sorted()` function on both strings and compare the results.",
+    "display": "Print True if they are anagrams, else False.",
+    "hint": "If you sort the characters of two anagrams, what do you get?"
+  },
+  {
+    "id": "r3_q17",
+    "round": 3,
+    "title": "Celsius to Fahrenheit Converter",
+    "language": "Python",
+    "description": "Write a function that converts a temperature from Celsius to Fahrenheit.",
+    "startingCode": "def celsius_to_fahrenheit(celsius):\n    # Write your code here\n    pass",
+    "correctedCode": "def celsius_to_fahrenheit(celsius):\n    return (celsius * 9/5) + 32",
+    "testCases": [
+      {"input": "0", "output": "32.0"},
+      {"input": "100", "output": "212.0"}
+    ],
+    "approach": "Implement the conversion formula: `Fahrenheit = (Celsius * 9/5) + 32`.",
+    "display": "Print the temperature in Fahrenheit.",
+    "hint": "The formula to convert Celsius to Fahrenheit is F = (C * 1.8) + 32."
+  },
+  {
+    "id": "r3_q18",
+    "round": 3,
+    "title": "Rectangle Class with Area",
+    "language": "Python",
+    "description": "Create a `Rectangle` class with `width` and `height` attributes and a method to calculate its area.",
+    "startingCode": "class Rectangle:\n    def __init__(self, width, height):\n        pass\n\n    def area(self):\n        pass",
+    "correctedCode": "class Rectangle:\n    def __init__(self, width, height):\n        self.width = width\n        self.height = height\n\n    def area(self):\n        return self.width * self.height",
+    "testCases": [
+      {"input": "r = Rectangle(10, 5); r.area()", "output": "50"},
+      {"input": "r = Rectangle(3, 4); r.area()", "output": "12"}
+    ],
+    "approach": "Define a `Rectangle` class with an `__init__` method to set width and height. Add an `area` method that returns the product of width and height.",
+    "display": "Print the calculated area.",
+    "hint": "The area of a rectangle is width multiplied by height."
+  },
+  {
+    "id": "r3_q19",
+    "round": 3,
+    "title": "Find Common Elements in Lists",
+    "language": "Python",
+    "description": "Write a function that returns a list of common elements between two lists.",
+    "startingCode": "def find_common_elements(list1, list2):\n    # Write your code here\n    pass",
+    "correctedCode": "def find_common_elements(list1, list2):\n    return list(set(list1) & set(list2))",
+    "testCases": [
+      {"input": "[1, 2, 3, 4], [3, 4, 5, 6]", "output": "[3, 4]"},
+      {"input": "['a', 'b', 'c'], ['x', 'y', 'z']", "output": "[]"}
+    ],
+    "approach": "Convert both lists to sets. Find the intersection of the two sets using the `&` operator, then convert the result back to a list.",
+    "display": "Print the list of common elements. Order might not be preserved.",
+    "hint": "Sets are a great way to find intersections between collections of items."
+  },
+  {
+    "id": "r3_q20",
+    "round": 3,
+    "title": "Title Case a String",
+    "language": "Python",
+    "description": "Write a function that converts a string into title case (the first letter of each word is capitalized).",
+    "startingCode": "def to_title_case(s):\n    # Write your code here\n    pass",
+    "correctedCode": "def to_title_case(s):\n    return s.title()",
+    "testCases": [
+      {"input": "\"hello world\"", "output": "\"Hello World\""},
+      {"input": "\"python programming is fun\"", "output": "\"Python Programming Is Fun\""}
+    ],
+    "approach": "Use the built-in `title()` string method.",
+    "display": "Print the title-cased string.",
+    "hint": "Check out Python's built-in string methods for capitalization."
+  },
+  {
+    "id": "r3_q21",
+    "round": 3,
+    "title": "Binary Search",
+    "language": "Python",
+    "description": "Implement a binary search function that finds the index of a target value in a sorted list. Return -1 if the value is not found.",
+    "startingCode": "def binary_search(arr, target):\n    # Write your code here\n    pass",
+    "correctedCode": "def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1",
+    "testCases": [
+      {"input": "[1, 2, 3, 4, 5, 6], 4", "output": "3"},
+      {"input": "[10, 20, 30, 40], 50", "output": "-1"}
+    ],
+    "approach": "Use an iterative approach with two pointers, `low` and `high`. In each step, calculate the middle index. If the middle element is the target, return its index. If it's smaller, move the `low` pointer up. If it's larger, move the `high` pointer down.",
+    "display": "Print the index of the target, or -1 if not found.",
+    "hint": "Binary search works on sorted arrays by repeatedly dividing the search interval in half."
+  },
+  {
+    "id": "r3_q22",
+    "round": 3,
+    "title": "BankAccount Class",
+    "language": "Python",
+    "description": "Create a `BankAccount` class with methods to deposit, withdraw, and check the balance. Ensure withdrawal doesn't overdraw the account.",
+    "startingCode": "class BankAccount:\n    def __init__(self, initial_balance=0):\n        pass\n    def deposit(self, amount):\n        pass\n    def withdraw(self, amount):\n        pass\n    def get_balance(self):\n        pass",
+    "correctedCode": "class BankAccount:\n    def __init__(self, initial_balance=0):\n        self.balance = initial_balance\n    def deposit(self, amount):\n        self.balance += amount\n    def withdraw(self, amount):\n        if amount <= self.balance:\n            self.balance -= amount\n        else:\n            print('Insufficient funds')\n    def get_balance(self):\n        return self.balance",
+    "testCases": [
+      {"input": "acc = BankAccount(100); acc.deposit(50); acc.get_balance()", "output": "150"},
+      {"input": "acc = BankAccount(100); acc.withdraw(150); acc.get_balance()", "output": "Insufficient funds\n100"}
+    ],
+    "approach": "Initialize a `balance` attribute in the constructor. The `deposit` method adds to the balance. The `withdraw` method subtracts from the balance only if there are sufficient funds. The `get_balance` method returns the current balance.",
+    "display": "Print the balance or an error message.",
+    "hint": "In the `withdraw` method, always check if the withdrawal amount is less than or equal to the current balance."
+  },
+  {
+    "id": "r3_q23",
+    "round": 3,
+    "title": "Sum of Digits",
+    "language": "Python",
+    "description": "Write a function that calculates the sum of the digits of a given integer.",
+    "startingCode": "def sum_of_digits(n):\n    # Write your code here\n    pass",
+    "correctedCode": "def sum_of_digits(n):\n    return sum(int(digit) for digit in str(n))",
+    "testCases": [
+      {"input": "123", "output": "6"},
+      {"input": "4567", "output": "22"}
+    ],
+    "approach": "Convert the number to a string to iterate over its digits. Convert each digit character back to an integer and sum them up using a generator expression and the `sum()` function.",
+    "display": "Print the sum of the digits.",
+    "hint": "Converting the number to a string allows you to easily loop through its digits."
+  },
+  {
+    "id": "r3_q24",
+    "round": 3,
+    "title": "Transpose a Matrix",
+    "language": "Python",
+    "description": "Write a function to transpose a matrix (swap rows and columns).",
+    "startingCode": "def transpose_matrix(matrix):\n    # Write your code here\n    pass",
+    "correctedCode": "def transpose_matrix(matrix):\n    return [list(row) for row in zip(*matrix)]",
+    "testCases": [
+      {"input": "[[1, 2, 3], [4, 5, 6]]", "output": "[[1, 4], [2, 5], [3, 6]]"},
+      {"input": "[[1, 2], [3, 4], [5, 6]]", "output": "[[1, 3, 5], [2, 4, 6]]"}
+    ],
+    "approach": "Use the `zip()` function with the `*` operator to unpack the rows of the matrix. This effectively groups elements by column. Then convert the resulting tuples to lists.",
+    "display": "Print the transposed matrix.",
+    "hint": "The `zip(*matrix)` trick is a very Pythonic way to transpose a matrix."
+  },
+  {
+    "id": "r3_q25",
+    "round": 3,
+    "title": "Circle Class with Circumference",
+    "language": "Python",
+    "description": "Create a `Circle` class that takes a radius and has a method to calculate the circumference.",
+    "startingCode": "import math\n\nclass Circle:\n    def __init__(self, radius):\n        pass\n\n    def circumference(self):\n        pass",
+    "correctedCode": "import math\n\nclass Circle:\n    def __init__(self, radius):\n        self.radius = radius\n\n    def circumference(self):\n        return 2 * math.pi * self.radius",
+    "testCases": [
+      {"input": "c = Circle(10); c.circumference()", "output": "62.83185307179586"},
+      {"input": "c = Circle(1); c.circumference()", "output": "6.283185307179586"}
+    ],
+    "approach": "Import the `math` module to get the value of pi. In the `Circle` class, store the radius. The `circumference` method should implement the formula `2 * pi * r`.",
+    "display": "Print the calculated circumference.",
+    "hint": "The formula for a circle's circumference is 2πr. You can get π from the `math` module."
+  },
+  {
+    "id": "r3_q26",
+    "round": 3,
+    "title": "Character Frequency Counter",
+    "language": "Python",
+    "description": "Write a function that takes a string and returns a dictionary with the frequency of each character.",
+    "startingCode": "def char_frequency(s):\n    # Write your code here\n    pass",
+    "correctedCode": "def char_frequency(s):\n    frequency = {}\n    for char in s:\n        frequency[char] = frequency.get(char, 0) + 1\n    return frequency",
+    "testCases": [
+      {"input": "\"hello\"", "output": "{'h': 1, 'e': 1, 'l': 2, 'o': 1}"},
+      {"input": "\"abracadabra\"", "output": "{'a': 5, 'b': 2, 'r': 2, 'c': 1, 'd': 1}"}
+    ],
+    "approach": "Initialize an empty dictionary. Iterate through the string. For each character, use the dictionary's `get()` method to retrieve the current count (or 0 if it's not there) and increment it.",
+    "display": "Print the dictionary of character frequencies.",
+    "hint": "A dictionary is a great way to store key-value pairs, like characters and their counts. The `dict.get(key, default)` method is very useful here."
+  },
+  {
+    "id": "r3_q27",
+    "round": 3,
+    "title": "Leap Year Check",
+    "language": "Python",
+    "description": "Write a function that determines if a given year is a leap year. A leap year is divisible by 4, except for end-of-century years, which must be divisible by 400.",
+    "startingCode": "def is_leap_year(year):\n    # Write your code here\n    pass",
+    "correctedCode": "def is_leap_year(year):\n    return (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)",
+    "testCases": [
+      {"input": "2000", "output": "True"},
+      {"input": "1900", "output": "False"},
+      {"input": "2024", "output": "True"}
+    ],
+    "approach": "Implement the leap year logic using conditional statements. A year is a leap year if it is divisible by 4, unless it is also divisible by 100 but not by 400.",
+    "display": "Print True for a leap year, False otherwise.",
+    "hint": "The condition for a leap year is: (divisible by 4 AND not divisible by 100) OR (divisible by 400)."
+  },
+  {
+    "id": "r3_q28",
+    "round": 3,
+    "title": "Find the Missing Number",
+    "language": "Python",
+    "description": "Given a list containing n distinct numbers taken from the range 0 to n, find the one that is missing from the list.",
+    "startingCode": "def find_missing_number(nums):\n    # Write your code here\n    pass",
+    "correctedCode": "def find_missing_number(nums):\n    n = len(nums)\n    expected_sum = n * (n + 1) // 2\n    actual_sum = sum(nums)\n    return expected_sum - actual_sum",
+    "testCases": [
+      {"input": "[3, 0, 1]", "output": "2"},
+      {"input": "[9, 6, 4, 2, 3, 5, 7, 0, 1]", "output": "8"}
+    ],
+    "approach": "Use Gauss' formula to find the sum of numbers from 0 to n. Calculate the actual sum of the numbers in the given list. The difference between the expected sum and the actual sum is the missing number.",
+    "display": "Print the missing number.",
+    "hint": "The sum of the first n integers can be calculated with the formula n*(n+1)/2."
+  },
+  {
+    "id": "r3_q29",
+    "round": 3,
+    "title": "Flatten a Nested List",
+    "language": "Python",
+    "description": "Write a function to flatten a nested list. For example, [[1,2],[3,4]] should become [1,2,3,4].",
+    "startingCode": "def flatten_list(nested_list):\n    # Write your code here\n    pass",
+    "correctedCode": "def flatten_list(nested_list):\n    return [item for sublist in nested_list for item in sublist]",
+    "testCases": [
+      {"input": "[[1, 2, 3], [4, 5], [6]]", "output": "[1, 2, 3, 4, 5, 6]"},
+      {"input": "[['a', 'b'], ['c']]", "output": "['a', 'b', 'c']"}
+    ],
+    "approach": "Use a nested list comprehension. The outer loop iterates through the sublists, and the inner loop iterates through the items in each sublist.",
+    "display": "Print the flattened list.",
+    "hint": "A nested list comprehension can solve this problem in a single, readable line."
+  },
+  {
+    "id": "r3_q30",
+    "round": 3,
+    "title": "Book Class",
+    "language": "Python",
+    "description": "Create a `Book` class with `title` and `author` attributes and a `display` method that prints 'Title by Author'.",
+    "startingCode": "class Book:\n    def __init__(self, title, author):\n        pass\n\n    def display(self):\n        pass",
+    "correctedCode": "class Book:\n    def __init__(self, title, author):\n        self.title = title\n        self.author = author\n\n    def display(self):\n        print(f'{self.title} by {self.author}')",
+    "testCases": [
+      {"input": "b = Book('1984', 'George Orwell'); b.display()", "output": "1984 by George Orwell"},
+      {"input": "b = Book('To Kill a Mockingbird', 'Harper Lee'); b.display()", "output": "To Kill a Mockingbird by Harper Lee"}
+    ],
+    "approach": "In the `__init__` method, assign the title and author to instance attributes. The `display` method should use an f-string to print the formatted output.",
+    "display": "The `display` method prints the formatted string to the console.",
+    "hint": "Use an f-string in the `display` method for easy formatting."
+  },
+  {
+    "id": "r3_q31",
+    "round": 3,
+    "title": "Acronym Generator",
+    "language": "Python",
+    "description": "Write a function that generates an acronym from a given phrase.",
+    "startingCode": "def generate_acronym(phrase):\n    # Write your code here\n    pass",
+    "correctedCode": "def generate_acronym(phrase):\n    return ''.join(word[0].upper() for word in phrase.split())",
+    "testCases": [
+      {"input": "\"Portable Network Graphics\"", "output": "\"PNG\""},
+      {"input": "\"as soon as possible\"", "output": "\"ASAP\""}
+    ],
+    "approach": "Split the phrase into words. Use a generator expression to take the first letter of each word and convert it to uppercase. Finally, join the letters together into a single string.",
+    "display": "Print the generated acronym.",
+    "hint": "Split the phrase into words, then take the first character of each word."
+  },
+  {
+    "id": "r3_q32",
+    "round": 3,
+    "title": "Bubble Sort",
+    "language": "Python",
+    "description": "Implement the bubble sort algorithm to sort a list of numbers in ascending order.",
+    "startingCode": "def bubble_sort(arr):\n    # Write your code here\n    pass",
+    "correctedCode": "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n-i-1):\n            if arr[j] > arr[j+1]:\n                arr[j], arr[j+1] = arr[j+1], arr[j]\n    return arr",
+    "testCases": [
+      {"input": "[64, 34, 25, 12, 22, 11, 90]", "output": "[11, 12, 22, 25, 34, 64, 90]"},
+      {"input": "[5, 1, 4, 2, 8]", "output": "[1, 2, 4, 5, 8]"}
+    ],
+    "approach": "Use nested loops. The outer loop reduces the number of elements to be sorted in each pass. The inner loop compares adjacent elements and swaps them if they are in the wrong order.",
+    "display": "Print the sorted list.",
+    "hint": "Bubble sort repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order."
+  },
+  {
+    "id": "r3_q33",
+    "round": 3,
+    "title": "Person Class with Age Group",
+    "language": "Python",
+    "description": "Create a `Person` class with `name` and `age`. Add a method `get_age_group` that returns 'Child' (0-12), 'Teen' (13-19), 'Adult' (20-59), or 'Senior' (60+).",
+    "startingCode": "class Person:\n    def __init__(self, name, age):\n        pass\n\n    def get_age_group(self):\n        pass",
+    "correctedCode": "class Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\n    def get_age_group(self):\n        if self.age <= 12:\n            return 'Child'\n        elif self.age <= 19:\n            return 'Teen'\n        elif self.age <= 59:\n            return 'Adult'\n        else:\n            return 'Senior'",
+    "testCases": [
+      {"input": "p = Person('Alice', 10); p.get_age_group()", "output": "'Child'"},
+      {"input": "p = Person('Bob', 65); p.get_age_group()", "output": "'Senior'"}
+    ],
+    "approach": "Store `name` and `age` in the constructor. Use a series of `if/elif/else` statements in the `get_age_group` method to check the age against the given ranges and return the corresponding string.",
+    "display": "Print the person's age group category.",
+    "hint": "Use an `if/elif/else` chain to handle the different age ranges."
+  },
+  {
+    "id": "r3_q34",
+    "round": 3,
+    "title": "Decimal to Binary Converter",
+    "language": "Python",
+    "description": "Write a function that converts a decimal integer to its binary representation as a string.",
+    "startingCode": "def decimal_to_binary(n):\n    # Write your code here\n    pass",
+    "correctedCode": "def decimal_to_binary(n):\n    return bin(n)[2:]",
+    "testCases": [
+      {"input": "10", "output": "\"1010\""},
+      {"input": "25", "output": "\"11001\""}
+    ],
+    "approach": "Use the built-in `bin()` function which returns the binary representation prefixed with '0b'. Use string slicing `[2:]` to remove this prefix.",
+    "display": "Print the binary string.",
+    "hint": "Python's `bin()` function can do this, but it adds a '0b' prefix you'll need to remove."
+  },
+  {
+    "id": "r3_q35",
+    "round": 3,
+    "title": "Find All Permutations of a String",
+    "language": "Python",
+    "description": "Write a function that returns a list of all permutations of a given string.",
+    "startingCode": "from itertools import permutations\n\ndef get_permutations(s):\n    # Write your code here\n    pass",
+    "correctedCode": "from itertools import permutations\n\ndef get_permutations(s):\n    return [''.join(p) for p in permutations(s)]",
+    "testCases": [
+      {"input": "\"ab\"", "output": "['ab', 'ba']"},
+      {"input": "\"abc\"", "output": "['abc', 'acb', 'bac', 'bca', 'cab', 'cba']"}
+    ],
+    "approach": "Import the `permutations` function from the `itertools` module. Call `permutations(s)` to get an iterator of tuples of characters. Use a list comprehension to join each tuple back into a string.",
+    "display": "Print the list of all permutation strings.",
+    "hint": "The `itertools` module is your best friend for problems involving permutations and combinations."
+  },
+  {
+    "id": "r3_q36",
+    "round": 3,
+    "title": "Car Class Inheritance",
+    "language": "Python",
+    "description": "Create a `Vehicle` base class with a `drive` method. Then create a `Car` class that inherits from `Vehicle` and has its own `honk` method.",
+    "startingCode": "class Vehicle:\n    def drive(self):\n        print('Driving...')\n\nclass Car(Vehicle):\n    # Write your code here\n    pass",
+    "correctedCode": "class Vehicle:\n    def drive(self):\n        print('Driving...')\n\nclass Car(Vehicle):\n    def honk(self):\n        print('Honk!')",
+    "testCases": [
+      {"input": "c = Car(); c.drive()", "output": "Driving..."},
+      {"input": "c = Car(); c.honk()", "output": "Honk!"}
+    ],
+    "approach": "Define the `Vehicle` class as given. Define the `Car` class, specifying `Vehicle` in the parentheses to indicate inheritance. Add the `honk` method to the `Car` class.",
+    "display": "The test cases call methods that print to the console.",
+    "hint": "To make a class inherit from another, put the parent class's name in parentheses after the child class's name: `class Child(Parent):`."
+  },
+  {
+    "id": "r3_q37",
+    "round": 3,
+    "title": "Validate an IP Address",
+    "language": "Python",
+    "description": "Write a function that checks if a given string is a valid IPv4 address.",
+    "startingCode": "def is_valid_ip(ip_str):\n    # Write your code here\n    pass",
+    "correctedCode": "def is_valid_ip(ip_str):\n    parts = ip_str.split('.')\n    if len(parts) != 4:\n        return False\n    for part in parts:\n        if not part.isdigit() or not 0 <= int(part) <= 255:\n            return False\n    return True",
+    "testCases": [
+      {"input": "\"192.168.1.1\"", "output": "True"},
+      {"input": "\"256.0.0.1\"", "output": "False"},
+      {"input": "\"127.0.0.1.5\"", "output": "False"}
+    ],
+    "approach": "Split the string by the '.' character. Check if there are exactly four parts. Then, iterate through each part and check if it is a digit and if its integer value is between 0 and 255.",
+    "display": "Print True if the IP is valid, else False.",
+    "hint": "A valid IPv4 address has four parts separated by dots, and each part must be a number between 0 and 255."
+  },
+  {
+    "id": "r3_q38",
+    "round": 3,
+    "title": "Collatz Conjecture Steps",
+    "language": "Python",
+    "description": "Write a function that takes a positive integer and returns the number of steps required to reach 1 by following the Collatz conjecture rules (if n is even, n = n/2; if n is odd, n = 3*n + 1).",
+    "startingCode": "def collatz_steps(n):\n    # Write your code here\n    pass",
+    "correctedCode": "def collatz_steps(n):\n    steps = 0\n    while n != 1:\n        if n % 2 == 0:\n            n = n // 2\n        else:\n            n = 3 * n + 1\n        steps += 1\n    return steps",
+    "testCases": [
+      {"input": "6", "output": "8"},
+      {"input": "12", "output": "9"}
+    ],
+    "approach": "Initialize a step counter to 0. Use a `while` loop that continues until the number becomes 1. Inside the loop, apply the Collatz rules and increment the counter.",
+    "display": "Print the total number of steps.",
+    "hint": "Use a `while` loop that continues as long as the number is not equal to 1."
+  },
+  {
+    "id": "r3_q39",
+    "round": 3,
+    "title": "Student Class with Average Grade",
+    "language": "Python",
+    "description": "Create a `Student` class with a name and a list of grades. Add a method to calculate the average grade.",
+    "startingCode": "class Student:\n    def __init__(self, name, grades):\n        pass\n\n    def average_grade(self):\n        pass",
+    "correctedCode": "class Student:\n    def __init__(self, name, grades):\n        self.name = name\n        self.grades = grades\n\n    def average_grade(self):\n        return sum(self.grades) / len(self.grades)",
+    "testCases": [
+      {"input": "s = Student('Alice', [80, 90, 100]); s.average_grade()", "output": "90.0"},
+      {"input": "s = Student('Bob', [75, 85, 95, 65]); s.average_grade()", "output": "80.0"}
+    ],
+    "approach": "Store the name and list of grades in the constructor. The `average_grade` method should calculate the sum of the grades and divide by the number of grades.",
+    "display": "Print the student's average grade.",
+    "hint": "To find the average, you need the sum of the items and the count of the items."
+  },
+  {
+    "id": "r3_q40",
+    "round": 3,
+    "title": "Check for Balanced Parentheses",
+    "language": "Python",
+    "description": "Write a function to check if a string of parentheses '()', brackets '[]', and braces '{}' is balanced.",
+    "startingCode": "def is_balanced(s):\n    # Write your code here\n    pass",
+    "correctedCode": "def is_balanced(s):\n    stack = []\n    mapping = {')': '(', ']': '[', '}': '{'}\n    for char in s:\n        if char in mapping.values():\n            stack.append(char)\n        elif char in mapping.keys():\n            if not stack or mapping[char] != stack.pop():\n                return False\n        else:\n            return False\n    return not stack",
+    "testCases": [
+      {"input": "\"{[]()}\"", "output": "True"},
+      {"input": "\"{[()]}\"", "output": "True"},
+      {"input": "\"{[}\"", "output": "False"}
+    ],
+    "approach": "Use a stack (a list can work as a stack). Iterate through the string. If an opening bracket is found, push it onto the stack. If a closing bracket is found, check if the stack is empty or if the top of the stack is its matching opening bracket. If so, pop the stack. If not, the string is unbalanced. After the loop, the string is balanced only if the stack is empty.",
+    "display": "Print True if balanced, False otherwise.",
+    "hint": "A stack is the perfect data structure for this problem. Push opening brackets and pop when you find a matching closing bracket."
+  },
+  {
+    "id": "r3_q41",
+    "round": 3,
+    "title": "Caesar Cipher",
+    "language": "Python",
+    "description": "Implement a Caesar cipher that shifts each letter in a string by a given number of places. The shift should wrap around the alphabet.",
+    "startingCode": "def caesar_cipher(s, shift):\n    # Write your code here\n    pass",
+    "correctedCode": "def caesar_cipher(s, shift):\n    result = ''\n    for char in s:\n        if char.isalpha():\n            start = ord('a') if char.islower() else ord('A')\n            result += chr((ord(char) - start + shift) % 26 + start)\n        else:\n            result += char\n    return result",
+    "testCases": [
+      {"input": "\"hello\", 3", "output": "\"khoor\""},
+      {"input": "\"xyz\", 3", "output": "\"abc\""},
+      {"input": "\"HeLLo\", 5", "output": "\"MjQQ't'"}
+    ],
+    "approach": "Iterate through each character of the string. If it's a letter, determine its ASCII offset (for lowercase or uppercase). Apply the shift using modulo 26 arithmetic to handle wrapping around the alphabet. Convert the new ASCII value back to a character. Non-alphabetic characters should remain unchanged.",
+    "display": "Print the encrypted string.",
+    "hint": "Use `ord()` to get the ASCII value of a character and `chr()` to convert it back. The modulo operator `%` is key for wrapping around the alphabet."
+  },
+  {
+    "id": "r3_q42",
+    "round": 3,
+    "title": "Employee Class with Raise",
+    "language": "Python",
+    "description": "Create an `Employee` class with `name` and `salary`. Add a method `apply_raise` that increases the salary by a given percentage.",
+    "startingCode": "class Employee:\n    def __init__(self, name, salary):\n        pass\n\n    def apply_raise(self, percentage):\n        pass",
+    "correctedCode": "class Employee:\n    def __init__(self, name, salary):\n        self.name = name\n        self.salary = salary\n\n    def apply_raise(self, percentage):\n        self.salary *= (1 + percentage / 100)",
+    "testCases": [
+      {"input": "e = Employee('Alice', 50000); e.apply_raise(10); e.salary", "output": "55000.0"},
+      {"input": "e = Employee('Bob', 60000); e.apply_raise(5); e.salary", "output": "63000.0"}
+    ],
+    "approach": "Store name and salary in the constructor. The `apply_raise` method should take a percentage, calculate the multiplier (e.g., 10% raise is a 1.1 multiplier), and update the salary.",
+    "display": "The test case will check the value of the `salary` attribute after applying the raise.",
+    "hint": "To increase a value by a percentage, multiply it by `1 + (percentage / 100)`."
+  },
+  {
+    "id": "r3_q43",
+    "round": 3,
+    "title": "Run-Length Encoding",
+    "language": "Python",
+    "description": "Implement run-length encoding. Given a string like 'AAABBC', convert it to '3A2B1C'.",
+    "startingCode": "def run_length_encode(s):\n    # Write your code here\n    pass",
+    "correctedCode": "def run_length_encode(s):\n    if not s:\n        return \"\"\n    encoded = \"\"\n    count = 1\n    for i in range(1, len(s)):\n        if s[i] == s[i-1]:\n            count += 1\n        else:\n            encoded += str(count) + s[i-1]\n            count = 1\n    encoded += str(count) + s[-1]\n    return encoded",
+    "testCases": [
+      {"input": "\"AAABBCDDDD\"", "output": "\"3A2B1C4D\""},
+      {"input": "\"WWWBBW\"", "output": "\"3W2B1W\""}
+    ],
+    "approach": "Iterate through the string, keeping track of the current character and its count. When the character changes, append the count and the character to the result string, then reset the counter.",
+    "display": "Print the encoded string.",
+    "hint": "You'll need to handle the last sequence of characters after the loop finishes."
+  },
+  {
+    "id": "r3_q44",
+    "round": 3,
+    "title": "Find the Median",
+    "language": "Python",
+    "description": "Write a function that finds the median of a list of numbers.",
+    "startingCode": "def find_median(numbers):\n    # Write your code here\n    pass",
+    "correctedCode": "def find_median(numbers):\n    sorted_nums = sorted(numbers)\n    n = len(sorted_nums)\n    mid = n // 2\n    if n % 2 == 1:\n        return sorted_nums[mid]\n    else:\n        return (sorted_nums[mid - 1] + sorted_nums[mid]) / 2",
+    "testCases": [
+      {"input": "[1, 3, 2, 5, 4]", "output": "3"},
+      {"input": "[1, 4, 2, 3]", "output": "2.5"}
+    ],
+    "approach": "First, sort the list. Then, find the middle index. If the number of elements is odd, the median is the middle element. If it's even, the median is the average of the two middle elements.",
+    "display": "Print the median value.",
+    "hint": "The first step is always to sort the list. Then consider the cases for odd and even length lists separately."
+  },
+  {
+    "id": "r3_q45",
+    "round": 3,
+    "title": "Geometric Point Class",
+    "language": "Python",
+    "description": "Create a `Point` class with `x` and `y` coordinates. Add a method to calculate the distance to another point.",
+    "startingCode": "import math\n\nclass Point:\n    def __init__(self, x, y):\n        pass\n\n    def distance_to(self, other_point):\n        pass",
+    "correctedCode": "import math\n\nclass Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n\n    def distance_to(self, other_point):\n        dx = self.x - other_point.x\n        dy = self.y - other_point.y\n        return math.sqrt(dx**2 + dy**2)",
+    "testCases": [
+      {"input": "p1 = Point(0, 0); p2 = Point(3, 4); p1.distance_to(p2)", "output": "5.0"},
+      {"input": "p1 = Point(1, 1); p2 = Point(1, 1); p1.distance_to(p2)", "output": "0.0"}
+    ],
+    "approach": "Store x and y in the constructor. The `distance_to` method should implement the distance formula: `sqrt((x2-x1)^2 + (y2-y1)^2)`. Use `math.sqrt` for the square root.",
+    "display": "Print the distance between the two points.",
+    "hint": "The distance formula is derived from the Pythagorean theorem. You'll need the `math` module for the square root."
+  },
+  {
+    "id": "r3_q46",
+    "round": 3,
+    "title": "Sieve of Eratosthenes",
+    "language": "Python",
+    "description": "Implement the Sieve of Eratosthenes algorithm to find all prime numbers up to a given integer.",
+    "startingCode": "def sieve_of_eratosthenes(n):\n    # Write your code here\n    pass",
+    "correctedCode": "def sieve_of_eratosthenes(n):\n    primes = [True] * (n + 1)\n    primes[0] = primes[1] = False\n    for i in range(2, int(n**0.5) + 1):\n        if primes[i]:\n            for multiple in range(i*i, n + 1, i):\n                primes[multiple] = False\n    return [i for i, is_prime in enumerate(primes) if is_prime]",
+    "testCases": [
+      {"input": "10", "output": "[2, 3, 5, 7]"},
+      {"input": "20", "output": "[2, 3, 5, 7, 11, 13, 17, 19]"}
+    ],
+    "approach": "Create a boolean list `primes` of size n+1, initialized to True. Start with the first prime, 2. Mark all multiples of 2 as not prime. Move to the next number that is still marked as prime (which is 3) and mark all its multiples. Repeat until you've processed numbers up to the square root of n.",
+    "display": "Print the list of prime numbers.",
+    "hint": "You can optimize by starting to mark multiples from p*p, because smaller multiples will have already been marked by smaller primes."
+  },
+  {
+    "id": "r3_q47",
+    "round": 3,
+    "title": "Greatest Common Divisor (GCD)",
+    "language": "Python",
+    "description": "Write a function to find the greatest common divisor of two integers using the Euclidean algorithm.",
+    "startingCode": "def gcd(a, b):\n    # Write your code here\n    pass",
+    "correctedCode": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+    "testCases": [
+      {"input": "48, 18", "output": "6"},
+      {"input": "54, 24", "output": "6"}
+    ],
+    "approach": "Use the Euclidean algorithm. In a loop, repeatedly replace the larger number with the remainder of the division of the larger number by the smaller number, until the smaller number becomes 0. The GCD is the value of the larger number at that point.",
+    "display": "Print the GCD.",
+    "hint": "The Euclidean algorithm states that gcd(a, b) is the same as gcd(b, a % b)."
+  },
+  {
+    "id": "r3_q48",
+    "round": 3,
+    "title": "Deck of Cards Class",
+    "language": "Python",
+    "description": "Create a `Deck` class. It should be initialized with a standard 52-card deck. Add methods to `shuffle` the deck and `deal` one card.",
+    "startingCode": "import random\n\nclass Deck:\n    def __init__(self):\n        pass\n\n    def shuffle(self):\n        pass\n\n    def deal(self):\n        pass",
+    "correctedCode": "import random\n\nclass Deck:\n    def __init__(self):\n        suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']\n        ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']\n        self.cards = [f'{rank} of {suit}' for suit in suits for rank in ranks]\n\n    def shuffle(self):\n        random.shuffle(self.cards)\n\n    def deal(self):\n        return self.cards.pop() if self.cards else None",
+    "testCases": [
+      {"input": "deck = Deck(); len(deck.cards)", "output": "52"},
+      {"input": "deck = Deck(); first_card = deck.cards[0]; deck.shuffle(); deck.cards[0] != first_card", "output": "True"}
+    ],
+    "approach": "In `__init__`, create a list of all 52 cards using nested loops or a list comprehension over suits and ranks. The `shuffle` method can use `random.shuffle()`. The `deal` method can use `list.pop()` to remove and return the top card.",
+    "display": "The test cases check the state of the deck or the result of a method call.",
+    "hint": "Use the `random` module to shuffle the deck. `list.pop()` is a good way to deal a card."
+  },
+  {
+    "id": "r3_q49",
+    "round": 3,
+    "title": "Pascal's Triangle",
+    "language": "Python",
+    "description": "Write a function that generates the first n rows of Pascal's Triangle.",
+    "startingCode": "def generate_pascals_triangle(n):\n    # Write your code here\n    pass",
+    "correctedCode": "def generate_pascals_triangle(n):\n    triangle = []\n    for i in range(n):\n        row = [1] * (i + 1)\n        for j in range(1, i):\n            row[j] = triangle[i-1][j-1] + triangle[i-1][j]\n        triangle.append(row)\n    return triangle",
+    "testCases": [
+      {"input": "5", "output": "[[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]]"},
+      {"input": "1", "output": "[[1]]"}
+    ],
+    "approach": "Iterate from 0 to n-1 to build each row. Each row starts and ends with 1. The numbers in between are the sum of the two numbers directly above them in the previous row.",
+    "display": "Print the list of lists representing the triangle.",
+    "hint": "Each number in the triangle is the sum of the two numbers directly above it."
+  },
+  {
+    "id": "r3_q50",
+    "round": 3,
+    "title": "Integer to Roman",
+    "language": "Python",
+    "description": "Write a function to convert an integer to its Roman numeral representation.",
+    "startingCode": "def integer_to_roman(num):\n    # Write your code here\n    pass",
+    "correctedCode": "def integer_to_roman(num):\n    val_map = [\n        (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),\n        (100, 'C'), (90, 'XC'), (50, 'L'), (40, 'XL'),\n        (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')\n    ]\n    roman_num = ''\n    for val, numeral in val_map:\n        while num >= val:\n            roman_num += numeral\n            num -= val\n    return roman_num",
+    "testCases": [
+      {"input": "3", "output": "\"III\""},
+      {"input": "58", "output": "\"LVIII\""},
+      {"input": "1994", "output": "\"MCMXCIV\""}
+    ],
+    "approach": "Create a mapping of integer values to Roman numerals, from largest to smallest, including subtractive combinations (like 900 for 'CM'). Iterate through this mapping. For each value, repeatedly subtract it from the input number and append the corresponding numeral to the result until the number is smaller than the value.",
+    "display": "Print the Roman numeral string.",
+    "hint": "It's easiest to handle this by creating a list of value-symbol pairs, sorted from largest to smallest value."
+  }
+]
